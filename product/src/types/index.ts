@@ -35,3 +35,9 @@ export interface TabProps {
     className?: string;
     setSelected: (text: string) => void;
 }
+
+export interface BannerProps {
+    key: string;
+    title: string;
+    description: string;
+}
