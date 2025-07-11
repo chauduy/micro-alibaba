@@ -1,14 +1,15 @@
-
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { useRouter } from 'next/router';
 
 import { footerLink, footerPayment, footerSocial } from '@/constants';
+
 import { AccordionWrapper } from './AccordionWrapper';
 
 function Footer() {
-    const pathname = usePathname();
-    const isAccount = pathname.includes('account');
+    const router = useRouter();
+    const isAccount = router?.pathname?.includes('account');
+
     return (
         <div
             className={`border-t-[1px] border-[#dddddd] p-4 pb-6 lg:pb-8 ${isAccount ? 'hidden' : ''}`}>

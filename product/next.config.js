@@ -10,7 +10,10 @@ module.exports = {
                 name: "productApp",
                 filename: "static/chunks/remoteEntry.js",
                 exposes: {
-                    "./HomePage": "./src/components/HomePage.tsx",
+                    "./HomePage": "./src/components/export/HomePage.tsx",
+                    "./CategoryPage":
+                        "./src/components/export/CategoryPage.tsx",
+                    "./ProductPage": "./src/components/export/ProductPage.tsx",
                 },
                 shared: {
                     react: { singleton: true },

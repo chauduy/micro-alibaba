@@ -1,10 +1,8 @@
-'use client';
-
 import { useState } from 'react';
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/router';
 import { FaRegUser } from 'react-icons/fa';
 import { FiShoppingCart } from 'react-icons/fi';
 
@@ -14,15 +12,15 @@ function Header() {
     const [openCart, setOpenCart] = useState<boolean>(false);
     const [openUser, setOpenUser] = useState<boolean>(false);
     const user = storage.getItem('user');
-    const pathname = usePathname();
     const router = useRouter();
+    const pathname = router.pathname;
     // const dispatch = useAppDispatch();
     // const { user, loginMethod } = useAppSelector((state: RootState) => state.auth);
     // const { list, loadingCart } = useAppSelector((state: RootState) => state.cart);
     // const { favoriteList, loadingFavorite } = useAppSelector((state: RootState) => state.favorite);
-    const isHideCart = pathname.includes('/cart') || pathname.includes('/auth') || !user;
-    const isHideAccount = pathname.includes('/account') || pathname.includes('/auth');
-    const isAccountPage = pathname.includes('account');
+    const isHideCart = pathname?.includes('/cart') || pathname?.includes('/auth') || !user;
+    const isHideAccount = pathname?.includes('/account') || pathname?.includes('/auth');
+    const isAccountPage = pathname?.includes('account');
     let timeoutCart: NodeJS.Timeout;
     let timeoutUser: NodeJS.Timeout;
 
