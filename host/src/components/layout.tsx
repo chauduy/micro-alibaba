@@ -1,5 +1,6 @@
 import Footer from './Footer';
 import Header from './Header';
+import { Toaster } from './ui/sonner';
 
 function Layout({ children }: { children: React.ReactNode }) {
     return (
@@ -7,6 +8,7 @@ function Layout({ children }: { children: React.ReactNode }) {
             <Header />
             {children}
             <Footer />
+            <Toaster />
         </>
     );
 }

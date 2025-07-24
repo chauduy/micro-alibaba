@@ -15,3 +15,9 @@ declare module 'productApp/ProductPage' {
     const Component: FC;
     export default Component;
 }
+
+declare module 'authApp/LoginPage' {
+    import { FC } from 'react';
+    const Component: FC;
+    export default Component;
+}

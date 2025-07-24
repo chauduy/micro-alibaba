@@ -11,7 +11,8 @@ module.exports = {
                 filename: 'static/chunks/remoteEntry.js',
                 remotes: {
                     productApp:
-                        'productApp@http://localhost:4001/_next/static/chunks/remoteEntry.js'
+                        'productApp@http://localhost:4001/_next/static/chunks/remoteEntry.js',
+                    authApp: 'authApp@http://localhost:4002/remoteEntry.js'
                 },
                 shared: {
                     react: { singleton: true, eager: true, requiredVersion: false },

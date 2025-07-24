@@ -16,7 +16,8 @@ export const customToast = (type: string) => {
                 },
                 icon: <FaRegCheckCircle className="h-5 w-5 text-green-500" />,
                 actionButtonStyle: {
-                    backgroundColor: '#fff'
+                    backgroundColor: '#fff',
+                    color: '#22c55e'
                 },
                 style: {
                     color: '#22c55e'
@@ -30,7 +31,8 @@ export const customToast = (type: string) => {
                 },
                 icon: <MdErrorOutline className="h-5 w-5 text-red-600" />,
                 actionButtonStyle: {
-                    backgroundColor: '#fff'
+                    backgroundColor: '#fff',
+                    color: '#dc2626'
                 },
                 style: {
                     color: '#dc2626'
@@ -44,7 +46,8 @@ export const customToast = (type: string) => {
                 },
                 icon: <IoIosWarning className="h-5 w-5 text-yellow-400" />,
                 actionButtonStyle: {
-                    backgroundColor: '#fff'
+                    backgroundColor: '#fff',
+                    color: '#facc15'
                 },
                 style: {
                     color: '#facc15'
