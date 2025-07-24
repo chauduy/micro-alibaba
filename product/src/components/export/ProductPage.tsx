@@ -18,7 +18,7 @@ import { Button } from "@/components/ui/button";
 // import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 // import { RootState } from '@/redux/store';
 import { Product as ProductProps } from "@/types";
-import { customToast, getRelatedProducts } from "@/utils";
+import { getRelatedProducts } from "@/utils";
 
 import data from "../../../data.json";
 let user;

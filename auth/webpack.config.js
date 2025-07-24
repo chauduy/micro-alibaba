@@ -52,6 +52,7 @@ module.exports = {
             filename: "remoteEntry.js",
             exposes: {
                 "./LoginPage": "./src/components/Login.tsx",
+                "./RegistrationPage": "./src/components/Registration.tsx",
             },
             shared: {
                 react: { singleton: true, eager: true, requiredVersion: false },
