@@ -9,7 +9,8 @@ import { Input } from "@/components/ui/input";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 import ButtonLoading from "./ButtonLoading";
-import { auth, provider } from "@/lib/firebase";
+import { auth, db, provider } from "@/lib/firebase";
+import { doc, getDoc } from "firebase/firestore";
 
 const schema = Yup.object().shape({
     email: Yup.string().email("Invalid email").required("Email is required"),
@@ -48,7 +49,13 @@ function Login({
                 values.email,
                 values.password
             );
-            localStorage.setItem("uid", user.uid);
+            const res = await getDoc(doc(db, "customers", user.uid));
+            const tempUser = {
+                ...res.data(),
+                uid: user.uid,
+                loginMethod: "account",
+            };
+            localStorage.setItem("user", JSON.stringify(tempUser));
             onLoginSuccess();
         } catch (error) {
             console.error("Login error:", error);
@@ -59,8 +66,17 @@ function Login({
 
     const handleGoogleSignIn = async () => {
         try {
-            const { user } = await signInWithPopup(auth, provider);
-            localStorage.setItem("uid", user.uid);
+            const result = await signInWithPopup(auth, provider);
+            const userResponse = result.user;
+            const user = {
+                display_name: userResponse.displayName,
+                email: userResponse.email,
+                phone_number: userResponse.phoneNumber,
+                token: await userResponse.getIdToken(),
+                uid: userResponse.uid,
+                loginMethod: "google",
+            };
+            localStorage.setItem("user", JSON.stringify(user));
             onLoginSuccess();
         } catch (error) {
             console.error("Google Sign-In Error:", error);

@@ -1,71 +1,62 @@
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
+import { doc, getDoc } from 'firebase/firestore';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FaRegUser } from 'react-icons/fa';
 import { FiShoppingCart } from 'react-icons/fi';
 
+import { db } from '@/lib/firebase';
+import { Product } from '@/types';
 import { storage } from '@/utils';
+
+import AccountPopup from './AccountPopup';
+import { AppRedirectContext } from './AppRedirectContext';
+import CartPopup from './CartPopup';
 
 function Header() {
     const [openCart, setOpenCart] = useState<boolean>(false);
     const [openUser, setOpenUser] = useState<boolean>(false);
-    const user = storage.getItem('user');
+    const [listCart, setListCart] = useState<Product[]>([]);
+    const { user } = useContext(AppRedirectContext);
+
     const router = useRouter();
     const pathname = router.pathname;
-    // const dispatch = useAppDispatch();
-    // const { user, loginMethod } = useAppSelector((state: RootState) => state.auth);
-    // const { list, loadingCart } = useAppSelector((state: RootState) => state.cart);
-    // const { favoriteList, loadingFavorite } = useAppSelector((state: RootState) => state.favorite);
     const isHideCart = pathname?.includes('/cart') || pathname?.includes('/auth') || !user;
     const isHideAccount = pathname?.includes('/account') || pathname?.includes('/auth');
     const isAccountPage = pathname?.includes('account');
     let timeoutCart: NodeJS.Timeout;
     let timeoutUser: NodeJS.Timeout;
 
-    // useEffect(() => {
-    //     if (!user?.uid) return;
-    //     dispatch(getCart({ uid: user.uid }));
-    //     dispatch(getFavoriteList({ uid: user.uid }));
-    // }, [user?.uid]);
+    useEffect(() => {
+        if (!user?.uid) return;
 
-    // useEffect(() => {
-    //     const handleUpdateCart = async () => {
-    //         if (!user?.uid) return;
+        const handleGetListCart = async () => {
+            try {
+                const userCartRef = doc(db, 'customers', user.uid, 'cart', 'cartData');
+                const cartSnap = await getDoc(userCartRef);
+                if (cartSnap.exists()) {
+                    if (cartSnap.data().list === null) {
+                        return;
+                    }
+                    setListCart(cartSnap.data().list);
+                    return;
+                } else {
+                    return;
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        };
 
-    //         const userCartRef = doc(db, 'customers', user.uid, 'cart', 'cartData');
-    //         await setDoc(userCartRef, { list }, { merge: true });
-    //     };
+        handleGetListCart();
+    }, [user?.uid]);
 
-    //     if (!loadingCart && list !== null) {
-    //         handleUpdateCart();
-    //     }
-    // }, [list]);
-
-    // useEffect(() => {
-    //     const handleUpdateFavoriteList = async () => {
-    //         if (!user?.uid) return;
-
-    //         const favoriteRef = doc(db, 'customers', user.uid, 'favorite', 'listData');
-    //         await setDoc(favoriteRef, { list: favoriteList }, { merge: true });
-    //     };
-
-    //     if (!loadingFavorite && favoriteList !== null) {
-    //         handleUpdateFavoriteList();
-    //     }
-    // }, [favoriteList]);
-
-    // useEffect(() => {
-    //     if (user !== null && !pathname.includes('/auth') && loginMethod === 'account') {
-    //         dispatch(getUserInfo({ uid: user.uid }));
-    //     }
-    // }, [pathname]);
-
-    // useEffect(() => {
-    //     setOpenCart(false);
-    //     setOpenUser(false);
-    // }, [pathname]);
+    useEffect(() => {
+        setOpenCart(false);
+        setOpenUser(false);
+    }, [pathname]);
 
     const handleMouseEnterCart = () => {
         if (openUser) setOpenUser(false);
@@ -118,7 +109,7 @@ function Header() {
                             onClick={() => router.push('/cart')}
                         />
 
-                        {/* {openCart && <CartPopup />} */}
+                        {openCart && <CartPopup list={listCart} />}
                     </div>
                 )}
 
@@ -134,7 +125,7 @@ function Header() {
                                     onClick={() => router.push('/account')}
                                 />
 
-                                {/* {openUser && <AccountPopup />} */}
+                                {openUser && <AccountPopup />}
                             </div>
                         ) : (
                             <div
