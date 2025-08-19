@@ -14,6 +14,11 @@ declare module 'productApp/ProductPage' {
     const Component: FC;
     export default Component;
 }
+declare module 'productApp/CartPage' {
+    import { FC } from 'react';
+    const Component: FC;
+    export default Component;
+}
 
 // authApp
 declare module 'authApp/LoginPage' {

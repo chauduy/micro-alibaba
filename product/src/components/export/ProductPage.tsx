@@ -1,39 +1,45 @@
 import { useEffect, useState } from "react";
 
 import Image from "next/image";
-import { useRouter } from "next/router";
 import { FaHeart } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
 import { IoMailOutline } from "react-icons/io5";
 import { PiWarningLight } from "react-icons/pi";
-import { toast } from "sonner";
 
 import AssuranceDrawer from "@/components/AssuranceDrawer";
 import Loading from "@/components/Loading";
 import RelatedProduct from "@/components/RelatedProduct";
 import ReviewStar from "@/components/ReviewStar";
 import { Button } from "@/components/ui/button";
-// import { addToCart, removeFromCart } from '@/redux/feature/cart/cartSlice';
-// import { addToList, removeFromList } from '@/redux/feature/favorite/favoriteSlice';
-// import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-// import { RootState } from '@/redux/store';
 import { Product as ProductProps } from "@/types";
-import { getRelatedProducts } from "@/utils";
+import { getRelatedProducts, notifyEvent, storage } from "@/utils";
 
 import data from "../../../data.json";
-let user;
+import { doc, getDoc, setDoc } from "firebase/firestore";
+import { db } from "@/lib/firebase";
+import ButtonLoading from "../ButtonLoading";
+import { CART_UPDATE, LIST_UPDATE } from "@/constants";
 
-function Product({ id }: { id: string }) {
+function Product({
+    id,
+    onShowToast,
+    onNavigateToCart,
+}: {
+    id: string;
+    onShowToast: (name: string, add: boolean) => void;
+    onNavigateToCart: () => void;
+}) {
     const [product, setProduct] = useState<ProductProps>();
     const [relatedProducts, setRelatedProducts] = useState<ProductProps[]>([]);
+    const [cartList, setCartList] = useState<ProductProps[]>([]);
+    const [favoriteList, setFavoriteList] = useState<ProductProps[]>([]);
+    const [loadingCart, setLoadingCart] = useState<boolean>(false);
+    const [loadingCheckout, setLoadingCheckout] = useState<boolean>(false);
+    const [loadingLike, setLoadingLike] = useState(false);
     const [isInCart, setIsInCart] = useState<boolean>();
     const [isInList, setIsInList] = useState<boolean>();
     const productId = Number(id);
-    // const { list } = useAppSelector((state: RootState) => state.cart);
-    // const { user } = useAppSelector((state: RootState) => state.auth);
-    // const { favoriteList } = useAppSelector((state: RootState) => state.favorite);
-    const router = useRouter();
-    // const dispatch = useAppDispatch();
+    const user = JSON.parse(storage.getItem("user") as string);
 
     useEffect(() => {
         if (productId) {
@@ -51,6 +57,13 @@ function Product({ id }: { id: string }) {
     }, [productId]);
 
     useEffect(() => {
+        if (!user?.uid) return;
+
+        handleGetCartList();
+        handleGetFavoriteList();
+    }, [user?.uid]);
+
+    useEffect(() => {
         if (product) {
             document.getElementById("main-top")?.scrollIntoView({
                 behavior: "instant",
@@ -58,59 +71,166 @@ function Product({ id }: { id: string }) {
         }
     }, [product]);
 
-    // useEffect(() => {
-    //     if (product) {
-    //         const find = list?.find((item) => item.id === product.id);
-    //         if (find) {
-    //             setIsInCart(true);
-    //         } else {
-    //             setIsInCart(false);
-    //         }
-    //     }
-    // }, [list, product]);
+    useEffect(() => {
+        if (product && cartList) {
+            const find = cartList?.find((item) => item.id === product.id);
+            if (find) {
+                setIsInCart(true);
+            } else {
+                setIsInCart(false);
+            }
+        }
+    }, [cartList, product]);
 
-    // useEffect(() => {
-    //     if (product) {
-    //         const find = favoriteList?.find((item) => item.id === product.id);
-    //         if (find) {
-    //             setIsInList(true);
-    //         } else {
-    //             setIsInList(false);
-    //         }
-    //     }
-    // }, [favoriteList, product]);
+    useEffect(() => {
+        if (product && favoriteList) {
+            const find = favoriteList?.find((item) => item.id === product.id);
+            if (find) {
+                setIsInList(true);
+            } else {
+                setIsInList(false);
+            }
+        }
+    }, [favoriteList, product]);
 
-    // const handleAddToCart = () => {
-    //     if (!product) return;
-    //     if (list!.find((item) => item.id === product.id)) {
-    //         dispatch(removeFromCart(product));
-    //         toast.success('Removed from cart', customToast('success'));
-    //     } else {
-    //         dispatch(addToCart(product));
-    //         toast('Added to cart', customToast('success'));
-    //     }
-    // };
+    const handleGetCartList = async () => {
+        try {
+            const userCartRef = doc(
+                db,
+                "customers",
+                user.uid,
+                "cart",
+                "cartData"
+            );
+            const cartSnap = await getDoc(userCartRef);
+            if (cartSnap.exists()) {
+                if (cartSnap.data().list === null) return;
+                setCartList(cartSnap.data().list);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
-    // const handleAddToList = () => {
-    //     if (!product) return;
-    //     if (favoriteList!.find((item) => item.id === product.id)) {
-    //         dispatch(removeFromList(product));
-    //         toast.success('Removed from your list', customToast('success'));
-    //     } else {
-    //         dispatch(addToList(product));
-    //         toast('Added to your list', customToast('success'));
-    //     }
-    // };
+    const handleGetFavoriteList = async () => {
+        try {
+            const userCartRef = doc(
+                db,
+                "customers",
+                user.uid,
+                "favorite",
+                "listData"
+            );
+            const favoriteSnap = await getDoc(userCartRef);
+            if (favoriteSnap.exists()) {
+                if (favoriteSnap.data().list === null) return;
+                setFavoriteList(favoriteSnap.data().list);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
-    // const handleStartOrder = () => {
-    //     if (!product) return;
-    //     if (list!.find((item) => item.id === product.id)) {
-    //         router.push('/cart');
-    //     } else {
-    //         dispatch(addToCart(product));
-    //         router.push('/cart');
-    //     }
-    // };
+    const handleChangCart = async () => {
+        setLoadingCart(true);
+        try {
+            if (!product) return;
+            const findItem = cartList.find((item) => item.id === product.id);
+            let updatedCart = [];
+            if (findItem) {
+                updatedCart = cartList.filter(
+                    (item) => item?.id !== findItem.id
+                );
+            } else {
+                updatedCart = [...cartList, product];
+            }
+            const userCartRef = doc(
+                db,
+                "customers",
+                user.uid,
+                "cart",
+                "cartData"
+            );
+            await setDoc(userCartRef, { list: updatedCart }, { merge: true });
+            await handleGetCartList();
+
+            // call event to let other components notify and get the latest data
+            notifyEvent(CART_UPDATE);
+
+            onShowToast("cart", findItem ? false : true);
+            setLoadingCart(false);
+        } catch (error) {
+            console.error(error);
+            setLoadingCart(false);
+        }
+    };
+
+    const handleChangeList = async () => {
+        setLoadingLike(true);
+        try {
+            if (!product) return;
+            const findItem = favoriteList.find(
+                (item) => item.id === product.id
+            );
+            let updateList = [];
+            if (findItem) {
+                updateList = favoriteList.filter(
+                    (item) => item?.id !== findItem.id
+                );
+                setIsInList(false);
+            } else {
+                updateList = [...favoriteList, product];
+                setIsInList(true);
+            }
+            const userCartRef = doc(
+                db,
+                "customers",
+                user.uid,
+                "favorite",
+                "listData"
+            );
+            await setDoc(userCartRef, { list: updateList }, { merge: true });
+            await handleGetFavoriteList();
+
+            // call event to let other components notify and get the latest data
+            notifyEvent(LIST_UPDATE);
+            setLoadingLike(false);
+            onShowToast("list", findItem ? false : true);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const handleStartOrder = async () => {
+        setLoadingCheckout(true);
+        if (!product) return;
+        try {
+            if (cartList.find((item) => item.id === product.id)) {
+                onNavigateToCart();
+            } else {
+                let updatedCart = [];
+                updatedCart = [...cartList, product];
+                const userCartRef = doc(
+                    db,
+                    "customers",
+                    user.uid,
+                    "cart",
+                    "cartData"
+                );
+                await setDoc(
+                    userCartRef,
+                    { list: updatedCart },
+                    { merge: true }
+                );
+                notifyEvent(CART_UPDATE);
+                setLoadingCheckout(false);
+                onNavigateToCart();
+            }
+        } catch (error) {
+            console.error(error);
+            setLoadingCheckout(false);
+        }
+    };
 
     const handleOpenMail = () => {
         return window.open(
@@ -163,10 +283,10 @@ function Product({ id }: { id: string }) {
                                         </div>
                                     </div>
                                     <Button
-                                        // disabled={!user}
+                                        disabled={!user || loadingLike}
                                         className="!bg-transparent"
                                         variant={"ghost"}
-                                        // onClick={handleAddToList}
+                                        onClick={handleChangeList}
                                     >
                                         {isInList ? (
                                             <FaHeart className="mt-2 !h-6 !w-6 text-red-700" />
@@ -198,10 +318,10 @@ function Product({ id }: { id: string }) {
                                         </div>
                                     </div>
                                     <Button
-                                        // disabled={!user}
+                                        disabled={!user || loadingLike}
                                         className="!bg-transparent"
                                         variant={"ghost"}
-                                        // onClick={handleAddToList}
+                                        onClick={handleChangeList}
                                     >
                                         {isInList ? (
                                             <FaHeart className="mt-2 !h-8 !w-8 text-red-700" />
@@ -226,22 +346,30 @@ function Product({ id }: { id: string }) {
                                 >
                                     <div className="flex w-[calc(100%-48px)] items-center gap-x-2 md:w-fit lg:w-full">
                                         <Button
-                                            // disabled={!user}
+                                            disabled={!user}
                                             variant={"default"}
                                             className="h-10 w-1/2 rounded-full bg-primary text-sm font-bold text-white md:w-40 lg:h-12 lg:w-1/2"
-                                            // onClick={handleStartOrder}
+                                            onClick={handleStartOrder}
                                         >
-                                            Start order
+                                            {loadingCheckout ? (
+                                                <ButtonLoading />
+                                            ) : (
+                                                "Start order"
+                                            )}
                                         </Button>
                                         <Button
-                                            // disabled={!user}
+                                            disabled={!user}
                                             variant={"outline"}
                                             className="h-10 w-1/2 rounded-full border-[1px] border-black bg-gray-100 text-sm font-bold md:w-40 lg:h-12 lg:w-1/2"
-                                            // onClick={handleAddToCart}
+                                            onClick={handleChangCart}
                                         >
-                                            {isInCart
-                                                ? "Remove from cart"
-                                                : "Add to cart"}
+                                            {loadingCart ? (
+                                                <ButtonLoading color="#ff6a00" />
+                                            ) : isInCart ? (
+                                                "Remove from cart"
+                                            ) : (
+                                                "Add to cart"
+                                            )}
                                         </Button>
                                     </div>
                                     <Button

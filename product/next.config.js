@@ -14,6 +14,7 @@ module.exports = {
                     "./CategoryPage":
                         "./src/components/export/CategoryPage.tsx",
                     "./ProductPage": "./src/components/export/ProductPage.tsx",
+                    "./CartPage": "./src/components/export/CartPage.tsx",
                 },
                 shared: {
                     react: { singleton: true },

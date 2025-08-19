@@ -48,3 +48,6 @@ export const productBanner = [
             "Products are automatically ranked based on buyer review volume from the last 90 days. Updated daily.",
     },
 ];
+
+export const CART_UPDATE = "cart:updated";
+export const LIST_UPDATE = "list:updated";

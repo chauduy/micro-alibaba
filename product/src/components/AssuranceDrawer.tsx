@@ -164,7 +164,7 @@ function AssuranceDrawer() {
                             </div>
                         </div>
                     </div>
-                    <div className="mt-3 rounded-md bg-[#F7F8FA] p-4 text-[11.5px] md:text-sm">
+                    <div className="mt-3 rounded-md bg-[#F7F8FA] p-4 md:p-6 text-[11.5px] md:text-sm">
                         <div className="text-sm md:text-[16px]">
                             Other trade services
                         </div>

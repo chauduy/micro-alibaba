@@ -14,6 +14,7 @@
         "@types/node": "24.0.10",
         "@types/react": "19.1.8",
         "@types/react-dom": "19.1.6",
+        "canvas-confetti": "^1.9.3",
         "class-variance-authority": "^0.7.1",
         "firebase": "^12.0.0",
         "motion": "^12.23.0",
@@ -24,11 +25,13 @@
         "react-icons": "^5.5.0",
         "sonner": "^2.0.6",
         "tailwind-merge": "^3.0.2",
-        "tailwindcss-animate": "^1.0.7"
+        "tailwindcss-animate": "^1.0.7",
+        "uuid": "^11.1.0"
     },
     "devDependencies": {
         "@module-federation/nextjs-mf": "7.0.8",
         "@trivago/prettier-plugin-sort-imports": "^5.2.2",
+        "@types/canvas-confetti": "^1.9.0",
         "autoprefixer": "^10.4.21",
         "env-cmd": "^10.1.0",
         "postcss": "^8",

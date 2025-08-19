@@ -41,3 +41,8 @@ export interface BannerProps {
     title: string;
     description: string;
 }
+
+export interface Timestamp {
+    seconds: number;
+    nanoseconds: number;
+}

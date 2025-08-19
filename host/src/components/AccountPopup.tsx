@@ -7,7 +7,7 @@ import { toast } from 'sonner';
 
 import { accountLink } from '@/constants';
 import { auth } from '@/lib/firebase';
-import { customToast } from '@/utils';
+import { customToast, storage } from '@/utils';
 
 import { AppRedirectContext } from './AppRedirectContext';
 import { Button } from './ui/button';
@@ -19,6 +19,7 @@ function AccountPopup() {
     const handleLogOut = async () => {
         try {
             await signOut(auth);
+            storage.removeItem('user');
             router.push('/');
         } catch (error) {
             toast.error('Something went wrong!', customToast('error'));
