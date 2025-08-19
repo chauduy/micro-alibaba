@@ -141,11 +141,7 @@ function Login({
                         className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-black/10 bg-white shadow-2xl"
                         onClick={handleGoogleSignIn}
                     >
-                        {
-                            FcGoogle({
-                                className: "h-6 w-6 text-white",
-                            }) as React.ReactElement
-                        }
+                        <FcGoogle className="h-6 w-6 text-white" />
                     </div>
                 </div>
                 <div className="mt-6 flex items-center justify-center text-center">
