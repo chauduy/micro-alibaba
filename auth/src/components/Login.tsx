@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import * as Yup from "yup";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { useForm } from "react-hook-form";
-import { FcGoogle } from "react-icons/fc";
+import { FcGoogle as FcGoogleIcon } from "react-icons/fc";
+import { IconBaseProps } from "react-icons";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,6 +13,7 @@ import ButtonLoading from "./ButtonLoading";
 import { auth, db, provider } from "@/lib/firebase";
 import { doc, getDoc } from "firebase/firestore";
 
+const FcGoogle = FcGoogleIcon as React.FC<IconBaseProps>;
 const schema = Yup.object().shape({
     email: Yup.string().email("Invalid email").required("Email is required"),
     password: Yup.string().required("Password is required"),
@@ -141,7 +143,11 @@ function Login({
                         className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-black/10 bg-white shadow-2xl"
                         onClick={handleGoogleSignIn}
                     >
-                        <FcGoogle className="h-6 w-6 text-white" />
+                        {
+                            FcGoogle({
+                                className: "h-6 w-6 text-white",
+                            }) as JSX.Element
+                        }
                     </div>
                 </div>
                 <div className="mt-6 flex items-center justify-center text-center">
