@@ -11,8 +11,8 @@ module.exports = {
                 filename: 'static/chunks/remoteEntry.js',
                 remotes: {
                     productApp:
-                        'productApp@http://localhost:4001/_next/static/chunks/remoteEntry.js',
-                    authApp: 'authApp@http://localhost:4002/remoteEntry.js'
+                        'productApp@https://product-ali.vercel.app/_next/static/chunks/remoteEntry.js',
+                    authApp: 'authApp@https://auth-ali.vercel.app/remoteEntry.js'
                 },
                 shared: {
                     react: { singleton: true, eager: true, requiredVersion: false },
