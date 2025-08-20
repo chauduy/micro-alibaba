@@ -21,7 +21,7 @@ module.exports = {
         },
     },
     output: {
-        publicPath: "http://localhost:4002/",
+        publicPath: "https://auth-ali.vercel.app",
     },
     module: {
         rules: [
