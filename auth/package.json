@@ -30,7 +30,7 @@
     },
     "scripts": {
         "start": "env-cmd webpack serve --config webpack.config.js --mode development",
-        "build": "react-scripts build",
+        "build": "webpack --mode production",
         "test": "react-scripts test",
         "eject": "react-scripts eject"
     },
