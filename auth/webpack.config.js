@@ -21,7 +21,10 @@ module.exports = {
         },
     },
     output: {
-        publicPath: "https://auth-ali.vercel.app",
+        filename: "[name].[contenthash].js",
+        path: path.resolve(__dirname, "dist"),
+        publicPath: "https://auth-ali.vercel.app/",
+        clean: true,
     },
     module: {
         rules: [
