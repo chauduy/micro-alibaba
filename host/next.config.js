@@ -12,7 +12,7 @@ module.exports = {
                 remotes: {
                     productApp:
                         'productApp@https://product-ali.vercel.app/_next/static/chunks/remoteEntry.js',
-                    authApp: 'authApp@https://auth-ali.vercel.app/remoteEntry.js'
+                    authApp: 'authApp@https://auth-ali.onrender.com/remoteEntry.js'
                 },
                 shared: {
                     react: { singleton: true, eager: true, requiredVersion: false },
