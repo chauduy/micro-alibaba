@@ -12,7 +12,7 @@ module.exports = {
     output: {
         filename: "[name].[contenthash].js",
         path: path.resolve(__dirname, "dist"),
-        publicPath: "https://auth-ali.onrender.com/",
+        publicPath: "https://micro-alibaba.onrender.com/",
         clean: true,
     },
     module: {
