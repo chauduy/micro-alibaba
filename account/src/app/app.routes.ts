@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: '/welcome' },
+  { path: '', pathMatch: 'full', redirectTo: '/account' },
   {
-    path: 'welcome',
-    loadChildren: () => import('./pages/welcome/welcome.routes').then((m) => m.WELCOME_ROUTES),
+    path: 'account',
+    loadChildren: () => import('./pages/account/account.routes').then((m) => m.ACCOUNT_ROUTES),
   },
 ];

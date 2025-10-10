@@ -1,17 +1,33 @@
 <nz-layout class="app-layout">
   <nz-sider
-    class="menu-sidebar"
     nzCollapsible
     nzWidth="256px"
-    nzBreakpoint="md"
+    [nzCollapsedWidth]="getSidebarWidth()"
+    nzBreakpoint="lg"
     [(nzCollapsed)]="isCollapsed"
     [nzTrigger]="null"
+    [ngClass]="isMobile ? 'sider-overlay' : 'menu-sidebar'"
   >
-    <div class="sidebar-logo">
-      <a href="https://ng.ant.design/" target="_blank">
-        <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo" />
-        <h1>Ant Design of Angular</h1>
+    <div class="sidebar-logo flex items-center justify-between border-b border-white">
+      <a
+        href="https://ng.ant.design/"
+        target="_blank"
+        [ngClass]="isCollapsed ? 'hidden' : ''"
+        class="flex items-center"
+      >
+        <img src="/brand.png" class="h-10 w-10 mr-2" />
+        <div class="text-[#ff6a00] text-[20px] font-bold">Alibaba</div>
       </a>
+      <span
+        class="text-[20px] cursor-pointer transition-all-[0.3s] text-white"
+        [ngClass]="isCollapsed ? 'pl-1.5' : 'pr-4'"
+        (click)="isCollapsed = !isCollapsed"
+      >
+        <nz-icon
+          class="hover:!text-[#ff6a00]"
+          [nzType]="isCollapsed ? 'double-right' : 'double-left'"
+        />
+      </span>
     </div>
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
       <li nz-submenu nzOpen nzTitle="Dashboard" nzIcon="dashboard">
@@ -37,10 +53,11 @@
     </ul>
   </nz-sider>
   <nz-layout>
-    <nz-header>
-      <div class="app-header">
-        <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
-          <nz-icon class="trigger" [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'" />
+    <nz-header [ngClass]="isMobile ? '' : '!hidden'">
+      <div class="app-header py-3 px-4 flex items-center">
+        <img src="/brand.png" class="h-10 w-10 mr-4" />
+        <span class="text-[20px] cursor-pointer" (click)="isCollapsed = !isCollapsed">
+          <nz-icon nzType="bars" />
         </span>
       </div>
     </nz-header>
