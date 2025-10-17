@@ -29,35 +29,50 @@
         />
       </span>
     </div>
-    <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
-      <li nz-submenu nzOpen nzTitle="Dashboard" nzIcon="dashboard">
-        <ul>
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="/welcome">Welcome</a>
-          </li>
-          <li nz-menu-item nzMatchRouter>
-            <a>Monitor</a>
-          </li>
-          <li nz-menu-item nzMatchRouter>
-            <a>Workplace</a>
-          </li>
-        </ul>
-      </li>
-      <li nz-submenu nzOpen nzTitle="Form" nzIcon="form">
-        <ul>
-          <li nz-menu-item nzMatchRouter>
-            <a>Basic Form</a>
-          </li>
-        </ul>
-      </li>
-    </ul>
+    <div class="flex flex-col">
+      <div class="hover:bg-slate-400 mt-2">
+        <a class="flex items-center text-white pl-6 py-4" routerLink="/account">
+          <span class="text-[25px] text-white mr-4">
+            <nz-icon nzType="home" />
+          </span>
+          <span [ngClass]="isCollapsed ? 'hidden' : ''" class="text-white">Home</span>
+        </a>
+      </div>
+      <div class="hover:bg-slate-400">
+        <a class="flex items-center text-white pl-6 py-4" routerLink="/order">
+          <span class="text-[25px] text-white mr-4">
+            <nz-icon nzType="file-text" />
+          </span>
+          <span [ngClass]="isCollapsed ? 'hidden' : ''" class="text-white">Order</span>
+        </a>
+      </div>
+      <div class="hover:bg-slate-400">
+        <a class="flex items-center text-white pl-6 py-4" routerLink="/welcome">
+          <span class="text-[25px] text-white mr-4">
+            <nz-icon nzType="unordered-list" />
+          </span>
+          <span [ngClass]="isCollapsed ? 'hidden' : ''" class="text-white">My list</span>
+        </a>
+      </div>
+      <div class="">
+        <a class="flex items-center text-white pl-6 py-4" routerLink="/order">
+          <span class="text-[25px] text-white mr-4">
+            <nz-icon nzType="logout" />
+          </span>
+          <span [ngClass]="isCollapsed ? 'hidden' : ''" class="text-white">Sign out</span>
+        </a>
+      </div>
+    </div>
   </nz-sider>
   <nz-layout>
     <nz-header [ngClass]="isMobile ? '' : '!hidden'">
       <div class="app-header py-3 px-4 flex items-center">
         <img src="/brand.png" class="h-10 w-10 mr-4" />
-        <span class="text-[20px] cursor-pointer" (click)="isCollapsed = !isCollapsed">
-          <nz-icon nzType="bars" />
+        <span
+          class="cursor-pointer flex items-center justify-center"
+          (click)="isCollapsed = !isCollapsed"
+        >
+          <nz-icon nzType="bars" style="font-size: 32px; width: 32px; height: 32px"></nz-icon>
         </span>
       </div>
     </nz-header>
