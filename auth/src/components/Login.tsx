@@ -46,18 +46,20 @@ function Login({
     const handleSubmitForm = async (values: AuthState) => {
         setLoading(true);
         try {
-            const { user } = await signInWithEmailAndPassword(
+            const test = await signInWithEmailAndPassword(
                 auth,
                 values.email,
                 values.password
             );
+            console.log("test", test);
+            const { user } = test;
             const res = await getDoc(doc(db, "customers", user.uid));
             const tempUser = {
                 ...res.data(),
                 uid: user.uid,
                 loginMethod: "account",
             };
-            localStorage.setItem("user", JSON.stringify(tempUser));
+            localStorage.setItem("user", JSON.stringify(test));
             onLoginSuccess();
         } catch (error) {
             console.error("Login error:", error);
