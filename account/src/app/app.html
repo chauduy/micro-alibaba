@@ -24,11 +24,12 @@
         (click)="isCollapsed = !isCollapsed"
       >
         <nz-icon
-          class="hover:!text-[#ff6a00]"
+          class="hover:text-[#ff6a00]!"
           [nzType]="isCollapsed ? 'double-right' : 'double-left'"
         />
       </span>
     </div>
+
     <div class="flex flex-col">
       <div class="hover:bg-slate-400 mt-2">
         <a class="flex items-center text-white pl-6 py-4" routerLink="/account">
@@ -54,7 +55,7 @@
           <span [ngClass]="isCollapsed ? 'hidden' : ''" class="text-white">My list</span>
         </a>
       </div>
-      <div class="">
+      <div>
         <a class="flex items-center text-white pl-6 py-4" routerLink="/order">
           <span class="text-[25px] text-white mr-4">
             <nz-icon nzType="logout" />
@@ -64,8 +65,9 @@
       </div>
     </div>
   </nz-sider>
+
   <nz-layout>
-    <nz-header [ngClass]="isMobile ? '' : '!hidden'">
+    <nz-header [ngClass]="isMobile ? '' : 'hidden!'">
       <div class="app-header py-3 px-4 flex items-center">
         <img src="/brand.png" class="h-10 w-10 mr-4" />
         <span
@@ -76,10 +78,17 @@
         </span>
       </div>
     </nz-header>
+
     <nz-content>
+      @if (favoriteList() === null) {
+      <div class="flex items-center justify-center h-screen">
+        <app-loading />
+      </div>
+      } @else {
       <div class="inner-content">
         <router-outlet></router-outlet>
       </div>
+      }
     </nz-content>
   </nz-layout>
 </nz-layout>

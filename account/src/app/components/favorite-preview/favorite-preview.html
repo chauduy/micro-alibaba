@@ -1,1 +1,19 @@
-<p>favorite-preview works!</p>
+<div class="bg-white p-4">
+  <p class="mb-4! text-2xl! font-bold!">Favorites</p>
+  <div *ngIf="list() && list()!.length > 0" class="flex flex-wrap gap-x-1 gap-y-2">
+    <div
+      *ngFor="let item of list() | slice : 0 : (isMobile ? 4 : 2)"
+      class="w-[calc((100%-12px)/4)] md:w-[calc((100%-4px)/2)] rounded-b-sm bg-white"
+    >
+      <app-product [product]="item" [isHideInfo]="true" />
+    </div>
+  </div>
+
+  <div *ngIf="list() && list()!.length === 0" class="flex w-fit flex-col">
+    <div class="flex w-32 items-center justify-center rounded-xl bg-gray-100 p-4">
+      <img alt="no-favorite" src="/no-favorite.avif" class="w-20 object-cover" />
+    </div>
+    <div class="my-2 text-center text-[16px] font-bold text-black">No favorite yet</div>
+    <a href="/" target="_self" class="text-center hover:underline! text-black!"> Explore </a>
+  </div>
+</div>
