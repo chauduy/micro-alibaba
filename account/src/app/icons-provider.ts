@@ -6,6 +6,7 @@ import {
   FileTextOutline,
   UnorderedListOutline,
   LogoutOutline,
+  EyeOutline,
 } from '@ant-design/icons-angular/icons';
 
 export const icons = [
@@ -16,4 +17,5 @@ export const icons = [
   FileTextOutline,
   UnorderedListOutline,
   LogoutOutline,
+  EyeOutline,
 ];

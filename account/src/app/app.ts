@@ -8,6 +8,7 @@ import { UserStore } from './store/user.store';
 import { FavoriteStore } from './store/favorite.store';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Loading } from './components/loading/loading';
+import { OrderStore } from './store/order.store';
 
 @Component({
   selector: 'app-root',
@@ -28,16 +29,24 @@ export class App {
   isCollapsed = false;
   isMobile = false;
   favoriteList;
+  orderList;
+  user;
 
-  constructor(private userStore: UserStore, private favoriteStore: FavoriteStore) {
+  constructor(
+    private userStore: UserStore,
+    private favoriteStore: FavoriteStore,
+    private orderStore: OrderStore
+  ) {
     this.favoriteList = toSignal(this.favoriteStore.favoriteList$, { initialValue: null });
+    this.orderList = toSignal(this.orderStore.orderList$, { initialValue: null });
+    this.user = toSignal(this.userStore.user$, { initialValue: null });
+
     effect(() => {
-      const user = this.userStore.user$;
-      user.subscribe((u) => {
-        if (u?.uid) {
-          this.favoriteStore.loadFavoriteList(u.uid);
-        }
-      });
+      const u = this.user();
+      if (u?.uid) {
+        this.favoriteStore.loadFavoriteList(u.uid);
+        this.orderStore.loadOrderList(u.uid);
+      }
     });
   }
 

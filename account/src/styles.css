@@ -8,6 +8,10 @@
 }
 
 @layer utilities {
+  .largeScreenConstrain {
+    @apply mx-auto lg:max-w-[1000px] xl:max-w-5xl 2xl:max-w-7xl;
+  }
+
   .settingLink {
     @apply cursor-pointer text-nowrap hover:font-semibold min-w-[130px];
   }

@@ -2,8 +2,8 @@
   <p class="mb-4! text-2xl! font-bold!">Favorites</p>
   <div *ngIf="list() && list()!.length > 0" class="flex flex-wrap gap-x-1 gap-y-2">
     <div
-      *ngFor="let item of list() | slice : 0 : (isMobile ? 4 : 2)"
-      class="w-[calc((100%-12px)/4)] md:w-[calc((100%-4px)/2)] rounded-b-sm bg-white"
+      *ngFor="let item of list() | slice : 0 : (isDesktop ? 2 : 4)"
+      class="w-[calc((100%-12px)/4)] lg:w-[calc((100%-4px)/2)] rounded-b-sm bg-white"
     >
       <app-product [product]="item" [isHideInfo]="true" />
     </div>

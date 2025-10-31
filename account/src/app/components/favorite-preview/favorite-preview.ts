@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
 })
 export class FavoritePreview {
   list;
-  isMobile = false;
+  isDesktop = false;
 
   constructor(private favoriteStore: FavoriteStore) {
     this.list = toSignal(this.favoriteStore.favoriteList$, { initialValue: null });
@@ -20,7 +20,7 @@ export class FavoritePreview {
 
   @HostListener('window:resize')
   onResize() {
-    this.isMobile = window.innerWidth < 768;
+    this.isDesktop = window.innerWidth > 1024;
   }
 
   ngOnInit() {

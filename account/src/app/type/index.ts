@@ -19,8 +19,37 @@ export interface FavoriteProduct {
   hotSellingScore?: string;
   bestReviewScore?: string;
   price: string;
-  quantity: number;
+  quantity?: number;
   sold: number;
   star: number;
   subject: string;
+}
+
+export interface Product extends FavoriteProduct {}
+
+export interface Timestamp {
+  seconds: number;
+  nanoseconds: number;
+}
+
+export interface Orders {
+  delivery_time: Timestamp;
+  list: Product[];
+  orderId: string;
+  order_time: Timestamp;
+}
+
+export interface CustomOrder {
+  delivery_time: string;
+  list: Product[];
+  orderId: string;
+  no: string;
+  order_time: string;
+  status: string;
+  amount: string;
+  status_style?: string;
+  amount_style?: string;
+  delivery_time_style?: string;
+  order_time_style?: string;
+  no_style?: string;
 }

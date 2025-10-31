@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { FavoriteProduct } from '../type';
 import { db } from '../../lib/firebase';
-import { doc, DocumentData, getDoc } from 'firebase/firestore';
+import { doc, getDoc } from 'firebase/firestore';
 
 @Injectable({ providedIn: 'root' })
 export class FavoriteStore {

@@ -1,0 +1,18 @@
+<div *ngIf="product" class="pb-6 pl-4" ngClass="isLast ? '': 'border-b border-gray-300'">
+  <h4 className="mb-4! text-xl! font-bold!">{{ getCategoryName() }}</h4>
+  <div class="flex gap-x-4">
+    <img
+      src="product.imageSrc"
+      class="h-[110px] w-[110px] rounded-lg border lg:h-auto lg:w-[150px]"
+    />
+    <div class="flex w-full flex-col justify-between py-1 lg:py-2">
+      <div class="line-clamp-2 text-left text-sm font-bold hover:underline lg:text-lg">
+        {{ product.subject }}
+      </div>
+      <div class="mb-1 text-sm font-extrabold lg:text-[20px]">
+        {{ product.price }}
+      </div>
+      <img src="/trash.png" class="cursor-pointer" />
+    </div>
+  </div>
+</div>

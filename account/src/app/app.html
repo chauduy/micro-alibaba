@@ -31,7 +31,7 @@
     </div>
 
     <div class="flex flex-col">
-      <div class="hover:bg-slate-400 mt-2">
+      <div class="hover:bg-slate-400">
         <a class="flex items-center text-white pl-6 py-4" routerLink="/account">
           <span class="text-[25px] text-white mr-4">
             <nz-icon nzType="home" />
@@ -66,7 +66,7 @@
     </div>
   </nz-sider>
 
-  <nz-layout>
+  <nz-layout class="overflow-y-auto">
     <nz-header [ngClass]="isMobile ? '' : 'hidden!'">
       <div class="app-header py-3 px-4 flex items-center">
         <img src="/brand.png" class="h-10 w-10 mr-4" />
@@ -80,7 +80,7 @@
     </nz-header>
 
     <nz-content>
-      @if (favoriteList() === null) {
+      @if (favoriteList() === null || orderList() === null) {
       <div class="flex items-center justify-center h-screen">
         <app-loading />
       </div>

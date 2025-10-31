@@ -1,0 +1,27 @@
+<nz-table *ngIf="data && data.length > 0">
+  <thead>
+    <tr>
+      <th *ngFor="let head of headColumns">{{ head }}</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let row of data" class="text-[14px]!">
+      <td *ngFor="let key of cellColumns" [ngClass]="row[key + '_style']">
+        <ng-container *ngIf="key !== 'action'; else actionTpl">{{ row[key] }}</ng-container>
+        <ng-template #actionTpl>
+          <i
+            nz-icon
+            nzType="eye"
+            class="cursor-pointer text-blue-600!"
+            (click)="onActionClick(row.id)"
+          ></i>
+        </ng-template>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
+
+<div *ngIf="data && data.length === 0" class="mt-4 text-black min-h-[208.75px] font-bold">
+  {{ emptyDataText }}
+</div>

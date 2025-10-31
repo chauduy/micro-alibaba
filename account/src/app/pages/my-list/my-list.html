@@ -1,0 +1,8 @@
+<div class="largeScreenConstrain p-4">
+  <h4 className="mb-10! mt-5! text-2xl! font-bold!">Favorite</h4>
+  @if ((favoriteList()?.length ?? 0) > 0) {
+  <div *ngFor="let item of favoriteList()" class="relative -ml-4 flex flex-col gap-y-4 pb-8">
+    <app-cart-item [product]="item" />
+  </div>
+  }@else { }
+</div>
