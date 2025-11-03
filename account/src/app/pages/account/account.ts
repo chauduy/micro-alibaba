@@ -8,6 +8,7 @@ import { InspirationList } from '../../components/inspiration-list/inspiration-l
 
 @Component({
   selector: 'app-account',
+  standalone: true,
   imports: [
     CommonModule,
     ProfileSetting,

@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-favorite-preview',
+  standalone: true,
   imports: [Product, CommonModule],
   templateUrl: './favorite-preview.html',
   styleUrl: './favorite-preview.scss',

@@ -4,6 +4,7 @@ import { FavoriteProduct } from '../../type';
 
 @Component({
   selector: 'app-product',
+  standalone: true,
   imports: [CommonModule],
   templateUrl: './product.html',
   styleUrl: './product.scss',

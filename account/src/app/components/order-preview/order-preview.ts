@@ -10,6 +10,7 @@ import { CustomTable } from '../custom-table/custom-table';
 
 @Component({
   selector: 'app-order-preview',
+  standalone: true,
   imports: [CommonModule, NzTabsModule, NzTableModule, CustomTable],
   templateUrl: './order-preview.html',
   styleUrl: './order-preview.scss',

@@ -1,4 +1,4 @@
-import { Component, effect, HostListener } from '@angular/core';
+import { Component, effect, HostListener, OnInit } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
@@ -25,7 +25,7 @@ import { OrderStore } from './store/order.store';
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
-export class App {
+export class App implements OnInit {
   isCollapsed = false;
   isMobile = false;
   favoriteList;
@@ -50,6 +50,11 @@ export class App {
     });
   }
 
+  async ngOnInit() {
+    this.onResize();
+    await this.userStore.loadUser();
+  }
+
   @HostListener('window:resize')
   onResize() {
     this.isMobile = window.innerWidth < 768;
@@ -57,11 +62,6 @@ export class App {
 
   toggleSidebar() {
     this.isCollapsed = !this.isCollapsed;
-  }
-
-  async ngOnInit() {
-    this.onResize();
-    await this.userStore.loadUser();
   }
 
   getSidebarWidth(): number {

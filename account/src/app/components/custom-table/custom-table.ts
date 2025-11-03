@@ -5,6 +5,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 
 @Component({
   selector: 'app-custom-table',
+  standalone: true,
   imports: [NzTableModule, NzIconModule, CommonModule],
   templateUrl: './custom-table.html',
   styleUrls: ['./custom-table.scss'],

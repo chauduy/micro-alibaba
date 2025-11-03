@@ -7,6 +7,7 @@ import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 
 @Component({
   selector: 'app-my-list',
+  standalone: true,
   imports: [NzPaginationModule, CommonModule, CartItem],
   templateUrl: './my-list.html',
   styleUrl: './my-list.scss',
