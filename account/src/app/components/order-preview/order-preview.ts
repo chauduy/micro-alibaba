@@ -3,10 +3,10 @@ import { CommonModule } from '@angular/common';
 import { NzTabsModule, NzTabChangeEvent } from 'ng-zorro-antd/tabs';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { OrderStore } from '../../store/order.store';
-import { CustomOrder } from '../../type';
-import { convertToDate, getAmount, getOrderStatus } from '../../../utils';
 import { CustomTable } from '../custom-table/custom-table';
+import { CustomOrder } from '@app/type';
+import { OrderStore } from '@app/store/order.store';
+import { convertToDate, getAmount, getOrderStatus } from 'utils';
 
 @Component({
   selector: 'app-order-preview',

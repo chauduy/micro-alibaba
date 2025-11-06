@@ -1,8 +1,8 @@
 import { Component, HostListener } from '@angular/core';
-import { FavoriteStore } from '../../store/favorite.store';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { Product } from '../product/product';
 import { CommonModule } from '@angular/common';
+import { Product } from '../product/product';
+import { FavoriteStore } from '@app/store/favorite.store';
 
 @Component({
   selector: 'app-favorite-preview',

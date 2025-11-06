@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Orders } from '../type';
-import { db } from '../../lib/firebase';
 import { collection, getDocs, query } from 'firebase/firestore';
+import { db } from 'lib/firebase';
 
 @Injectable({ providedIn: 'root' })
 export class OrderStore {

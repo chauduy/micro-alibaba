@@ -1,10 +1,10 @@
 import { Component, effect, signal } from '@angular/core';
-import { FavoriteStore } from '../../store/favorite.store';
-import { getRelatedProducts } from '../../../utils';
-import { Product as ProductType } from '../../type';
+import { Product as ProductType } from '@app/type';
 import { CommonModule } from '@angular/common';
-import { Product } from '../product/product';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { FavoriteStore } from '@app/store/favorite.store';
+import { getRelatedProducts } from 'utils';
+import { Product } from '../product/product';
 
 @Component({
   selector: 'app-inspiration-list',

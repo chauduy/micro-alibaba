@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FavoriteProduct } from '../../type';
+import { FavoriteProduct } from '@app/type';
 
 @Component({
   selector: 'app-product',

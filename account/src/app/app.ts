@@ -4,10 +4,10 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { CommonModule } from '@angular/common';
-import { UserStore } from './store/user.store';
-import { FavoriteStore } from './store/favorite.store';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Loading } from './components/loading/loading';
+import { UserStore } from './store/user.store';
+import { FavoriteStore } from './store/favorite.store';
 import { OrderStore } from './store/order.store';
 
 @Component({
