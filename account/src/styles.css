@@ -6,6 +6,11 @@
   font-size: 16px;
   line-height: 1.2;
 }
+@layer base {
+}
+
+@layer components {
+}
 
 @layer utilities {
   .largeScreenConstrain {

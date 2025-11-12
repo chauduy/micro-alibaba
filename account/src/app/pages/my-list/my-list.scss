@@ -1,0 +1,14 @@
+::ng-deep .ant-pagination-item {
+    a {
+        padding-top: 5px !important;
+    }
+}
+
+::ng-deep .ant-pagination {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+::ng-deep .ant-pagination-item-ellipsis {
+    padding-top: 5px !important;
+}

@@ -6,4 +6,8 @@ export const routes: Routes = [
     path: 'account',
     loadChildren: () => import('./pages/account/account.routes').then((m) => m.ACCOUNT_ROUTES),
   },
+  {
+    path: 'my-list',
+    loadChildren: () => import('./pages/my-list/my-list.routes').then((m) => m.MY_LIST_ROUTES),
+  },
 ];
