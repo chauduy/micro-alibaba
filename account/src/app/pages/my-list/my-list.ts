@@ -4,6 +4,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { CartItem } from '@app/components/cart-item/cart-item';
 import { InspirationList } from '@app/components/inspiration-list/inspiration-list';
 import { FavoriteStore } from '@app/store/favorite.store';
+import { Product } from '@app/type';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 
 @Component({
@@ -17,7 +18,7 @@ export class MyList {
     favoriteList;
     pagingDate = signal<{ totalPage: number; data: any } | null>(null);
     currentPage = signal<number>(1);
-    currentData = signal<any[]>([]);
+    currentData = signal<Product[]>([]);
 
     constructor(private favoriteStore: FavoriteStore) {
         this.favoriteList = toSignal(this.favoriteStore.favoriteList$, { initialValue: null });

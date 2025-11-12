@@ -1,18 +1,18 @@
 <div class="bg-white p-4!">
-  <div class="flex items-center gap-x-4 mb-4">
-    <p class="text-2xl! font-bold! mb-0!">Orders</p>
-    <button class="mt-1! text-blue-600!">View all</button>
-  </div>
-  <nz-tabs (nzSelectChange)="onChangeTab($event)">
-    <nz-tab nzTitle="All"></nz-tab>
-    <nz-tab nzTitle="Delivering"></nz-tab>
-    <nz-tab nzTitle="Completed"></nz-tab>
-  </nz-tabs>
-  <app-custom-table
-    [headColumns]="headOrderColumns"
-    [cellColumns]="cellOrderColumns"
-    [emptyDataText]="getContent()"
-    [data]="currentList()"
-    (actionClick)="onView($event)"
-  />
+    <div class="flex items-center gap-x-4 mb-4">
+        <p class="text-2xl! font-bold! mb-0!">Orders</p>
+        <button class="mt-1! text-blue-600!">View all</button>
+    </div>
+    <nz-tabs (nzSelectChange)="onChangeTab($event)">
+        <nz-tab nzTitle="All"></nz-tab>
+        <nz-tab nzTitle="Delivering"></nz-tab>
+        <nz-tab nzTitle="Completed"></nz-tab>
+    </nz-tabs>
+    <app-custom-table
+        [headColumns]="headColumns"
+        [cellColumns]="cellColumns"
+        [emptyDataText]="getContent()"
+        [data]="currentList()"
+        (actionClick)="onView($event)"
+    />
 </div>

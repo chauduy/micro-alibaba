@@ -1,22 +1,23 @@
 ::ng-deep .ant-table-placeholder {
-  display: none;
+    display: none;
 }
 
 ::ng-deep .ant-table-container {
-  font-size: 14px !important;
+    font-size: 14px !important;
 }
 
 ::ng-deep .ant-table {
-  overflow-x: auto;
-  th {
-    font-size: 14px !important;
-    text-align: center !important;
-    color: #71717a !important;
-    background: none !important;
-    font-weight: 600 !important;
-  }
-  td {
-    font-size: 14px !important;
-    text-align: center !important;
-  }
+    overflow-x: auto;
+    th {
+        font-size: 14px !important;
+        text-align: center !important;
+        color: #71717a !important;
+        background: none !important;
+        font-weight: 600 !important;
+        white-space: nowrap;
+    }
+    td {
+        font-size: 14px !important;
+        text-align: center !important;
+    }
 }

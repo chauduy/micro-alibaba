@@ -24,7 +24,7 @@ export class FavoriteStore {
             if (listSnap.exists()) {
                 const data = listSnap.data();
                 const items = data?.['list'];
-                this._favoriteList$.next(Array.isArray(items) ? items : []);
+                this._favoriteList$.next(items);
             } else {
                 this._favoriteList$.next([]);
             }

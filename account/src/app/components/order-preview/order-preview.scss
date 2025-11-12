@@ -1,47 +1,51 @@
 ::ng-deep .ant-tabs-ink-bar {
-  display: none !important;
+    display: none !important;
 }
 
 ::ng-deep .ant-tabs-nav {
-  position: relative;
+    position: relative;
 }
 
 ::ng-deep .ant-tabs-tab {
-  position: relative;
-  padding: 8px 32px;
-  transition: color 0.3s ease;
-  font-size: 14px;
-  color: black;
-  border: 1px solid #dddddd !important;
-  border-radius: 100px !important;
+    position: relative;
+    padding: 8px 32px;
+    transition: color 0.3s ease;
+    font-size: 14px;
+    color: black;
+    border: 1px solid #dddddd !important;
+    border-radius: 100px !important;
 }
 
 ::ng-deep .ant-tabs-tab::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border: 2px solid transparent;
-  border-radius: 100px;
-  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-    width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 2px solid transparent;
+    border-radius: 100px;
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+        width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 ::ng-deep .ant-tabs-tab {
-  margin: 0 !important;
+    margin: 0 !important;
 }
 
 ::ng-deep .ant-tabs-nav::before {
-  display: none;
+    display: none;
 }
 
 ::ng-deep .ant-tabs-nav-list {
-  column-gap: 8px;
+    column-gap: 8px;
 }
 
 ::ng-deep .ant-tabs-tab-active::after {
-  border-color: black;
+    border-color: black;
 }
 
 ::ng-deep .ant-tabs-tab-btn {
-  color: black !important;
+    color: black !important;
+}
+
+::ng-deep .ant-table-wrapper {
+    min-height: 220px !important;
 }
