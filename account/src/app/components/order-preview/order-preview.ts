@@ -1,5 +1,6 @@
 import { Component, effect, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { NzTabsModule, NzTabChangeEvent } from 'ng-zorro-antd/tabs';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -23,7 +24,7 @@ export class OrderPreview {
     headColumns = headOrderColumns;
     cellColumns = cellOrderColumns;
 
-    constructor(private orderStore: OrderStore) {
+    constructor(private orderStore: OrderStore, private router: Router) {
         this.totalList = toSignal(this.orderStore.orderList$, { initialValue: null });
 
         effect(() => {
@@ -63,7 +64,10 @@ export class OrderPreview {
     }
 
     onView(id: string) {
-        // TODO: Navigate to detail or open a modal. For now, just log.
-        console.log('View order', id);
+        this.router.navigate(['/orders', id]);
+    }
+
+    goToOrders() {
+        this.router.navigate(['/orders']);
     }
 }

@@ -1,0 +1,22 @@
+<div
+    class="my-5 h-fit rounded bg-white border border-gray-300 p-4 mx-auto md:w-1/2 max-w-[400px] lg:rounded-md lg:border-white lg:shadow-[0_-4px_20px_#0000000f] xl:w-[40%]"
+>
+    <div class="text-[20px] font-bold">Order Summary</div>
+    <div class="mt-6 flex items-center justify-between text-sm">
+        <div>Item quantity</div>
+        <div class="font-bold">{{ quantity }}</div>
+    </div>
+    <div class="mt-2 flex items-center justify-between text-sm">
+        <div>Item subtotal</div>
+        <div class="font-bold">{{ total }}</div>
+    </div>
+    <div class="mt-2 flex items-center justify-between border-b border-gray-200 pb-4 text-sm">
+        <div>Shipping fee</div>
+        <div class="font-bold">$10</div>
+    </div>
+    <div class="mt-4 flex items-center justify-between text-sm font-bold">
+        <div>Subtotal excl, tax</div>
+        <div>${{ subtotal }}</div>
+    </div>
+    <div class="mt-1 text-xs text-gray-500">(Excluding tax fee)</div>
+</div>

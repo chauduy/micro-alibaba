@@ -13,7 +13,10 @@ import { Product } from '@app/type';
 export class CartItem {
     @Input() product: Product | null = null;
     @Input() isLast: boolean = false;
+    @Input() hideAction: boolean = false;
+    @Input() displayQuantity: boolean = false;
     @Output() actionClick = new EventEmitter<any>();
+
     getCategoryName() {
         let findCategory;
         data.forEach((item) => {

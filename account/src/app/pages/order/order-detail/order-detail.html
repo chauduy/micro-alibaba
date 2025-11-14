@@ -1,0 +1,42 @@
+<div class="largeScreenConstrain">
+    <div class="px-4 my-5 flex gap-x-2 items-center cursor-pointer lg:mt-10" (click)="goToOrders()">
+        <button class="w-8 h-8 rounded-full flex items-center justify-center bg-[#ff6a00]">
+            <nz-icon nzType="arrow-left" nzTheme="outline" class="text-white!" />
+        </button>
+        <div class="text-lg font-bold lg:text-2xl!">Back To Orders</div>
+    </div>
+    @if (loading()) {
+    <div class="flex items-center justify-center h-screen">
+        <app-loading />
+    </div>
+    } @else if (order()) {
+    <div class="p-4">
+        <div class="bg-white rounded-lg h-full">
+            <div class="flex flex-col gap-y-4">
+                <div class="flex flex-col gap-y-4 min-h-[570px]">
+                    @if (currentData() && currentData().length > 0) { @for (item of currentData();
+                    track item.id; let i = $index) {
+                    <div class="relative -ml-4">
+                        <app-cart-item
+                            [product]="item"
+                            [hideAction]="true"
+                            [displayQuantity]="true"
+                            [isLast]="i === currentData().length - 1"
+                        />
+                    </div>
+                    } }
+                </div>
+                @if (pagingData()?.totalPage! > 1) {
+                <nz-pagination
+                    [nzPageIndex]="currentPage()"
+                    [nzTotal]="pagingData()!.totalPage * 10"
+                    (nzPageIndexChange)="onChangePage($event)"
+                ></nz-pagination>
+                }
+            </div>
+        </div>
+    </div>
+    <app-order-summary [orderInfo]="order()" />
+    <app-inspiration-list />
+    }
+</div>

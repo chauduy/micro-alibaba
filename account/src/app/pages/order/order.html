@@ -1,5 +1,5 @@
 <div class="largeScreenConstrain">
-    <div class="mt-5! text-2xl! font-bold! px-4">Orders</div>
+    <div class="mt-5! text-2xl! font-bold! px-4 lg:mt-10!">Orders</div>
     <div class="flex flex-col justify-between p-4">
         <div class="flex flex-col mb-10 min-h-80">
             @if (currentData().length > 0) {
@@ -12,10 +12,10 @@
             />
             }
         </div>
-        @if (pagingDate()?.totalPage! > 1) {
+        @if (pagingData()?.totalPage! > 1) {
         <nz-pagination
             [nzPageIndex]="currentPage()"
-            [nzTotal]="pagingDate()!.totalPage * 10"
+            [nzTotal]="pagingData()!.totalPage * 10"
             (nzPageIndexChange)="onChangePage($event)"
         ></nz-pagination>
         }

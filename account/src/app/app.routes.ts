@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { NotFound } from './pages/not-found/not-found';
 
 export const routes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: '/account' },
@@ -14,4 +15,6 @@ export const routes: Routes = [
         path: 'orders',
         loadChildren: () => import('./pages/order/order.routes').then((m) => m.ORDER_ROUTES),
     },
+    { path: 'not-found', component: NotFound },
+    { path: '**', component: NotFound },
 ];

@@ -1,10 +1,10 @@
 @import 'tailwindcss';
 
 * {
-  font-family: Roboto, Helvetica Neue-Light, Helvetica Neue Light, Helvetica Neue, Helvetica, Arial,
-    Lucida Grande, sans-serif;
-  font-size: 16px;
-  line-height: 1.2;
+    font-family: Roboto, Helvetica Neue-Light, Helvetica Neue Light, Helvetica Neue, Helvetica,
+        Arial, Lucida Grande, sans-serif;
+    font-size: 16px;
+    line-height: 1.2;
 }
 @layer base {
 }
@@ -13,11 +13,11 @@
 }
 
 @layer utilities {
-  .largeScreenConstrain {
-    @apply mx-auto lg:max-w-[1000px] xl:max-w-5xl 2xl:max-w-7xl;
-  }
+    .largeScreenConstrain {
+        @apply mx-auto lg:max-w-[1000px] xl:max-w-5xl 2xl:max-w-7xl;
+    }
 
-  .settingLink {
-    @apply cursor-pointer text-nowrap hover:font-semibold min-w-[130px];
-  }
+    .settingLink {
+        @apply cursor-pointer text-nowrap hover:font-semibold min-w-[130px];
+    }
 }

@@ -1,10 +1,15 @@
 <div class="largeScreenConstrain">
-    <div class="mt-5! text-2xl! font-bold! p-4">Favorite</div>
+    <div class="mt-5! text-2xl! font-bold! p-4 lg:mt-10!">Favorite</div>
     <div class="flex flex-col justify-between p-4">
         <div class="min-h-[630px] flex flex-col">
-            @if ((favoriteList()?.length ?? 0) > 0) { @for (item of currentData(); track item) {
+            @if ((favoriteList()?.length ?? 0) > 0) { @for (item of currentData(); track item; let i
+            = $index, let last = $last) {
             <div class="relative -ml-4 flex flex-col gap-y-4 pb-8">
-                <app-cart-item [product]="item" (actionClick)="onRemoveFromList($event)" />
+                <app-cart-item
+                    [product]="item"
+                    (actionClick)="onRemoveFromList($event)"
+                    [isLast]="i === currentData().length - 1"
+                />
             </div>
             }}
         </div>

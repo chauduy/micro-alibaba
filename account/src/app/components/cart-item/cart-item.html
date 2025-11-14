@@ -1,4 +1,4 @@
-<div *ngIf="product" class="pb-6 pl-4" ngClass="isLast ? '': 'border-b border-gray-300'">
+<div *ngIf="product" class="pb-6 ml-4" [ngClass]="isLast ? '' : 'border-b border-gray-300'">
     <div class="mb-4! text-xl! font-bold!">{{ getCategoryName() }}</div>
     <div class="flex gap-x-4">
         <img
@@ -15,9 +15,12 @@
                     {{ product.price }}
                 </div>
             </div>
-            <button (click)="onRemoveItem(product.id)">
+            <button *ngIf="!hideAction" (click)="onRemoveItem(product.id)" class="w-fit">
                 <img src="/trash.png" class="cursor-pointer w-6 h-6" />
             </button>
+            <div *ngIf="displayQuantity" class="text-[#666666] font-semibold">
+                Quantity: {{ product.quantity }}
+            </div>
         </div>
     </div>
 </div>

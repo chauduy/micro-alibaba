@@ -6,6 +6,7 @@ import { InspirationList } from '@app/components/inspiration-list/inspiration-li
 import { FavoriteStore } from '@app/store/favorite.store';
 import { Product } from '@app/type';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
+import { paging } from 'utils';
 
 @Component({
     selector: 'app-my-list',
@@ -25,22 +26,7 @@ export class MyList {
         effect(() => {
             const temp = this.favoriteList();
             if (temp && temp.length > 0) {
-                const data: any = {};
-                const length =
-                    temp.length % 3 === 0 ? temp.length / 3 : Math.floor(temp.length / 3) + 1;
-                let current = 0;
-                for (let i = 1; i <= length; i++) {
-                    data[i] = temp.slice(current, current + 3);
-                    current += 3;
-                }
-                this.pagingDate.set({
-                    totalPage: length,
-                    data,
-                });
-                // Set initial page data
-                if (this.currentPage() === 1 && data[1]) {
-                    this.currentData.set(data[1]);
-                }
+                this.pagingDate.set(paging(temp, 3));
             } else {
                 this.pagingDate.set(null);
                 this.currentData.set([]);

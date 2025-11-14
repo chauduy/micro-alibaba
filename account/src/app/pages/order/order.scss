@@ -1,7 +1,3 @@
-::ng-deep .ant-table-wrapper {
-    min-height: unset !important;
-}
-
 ::ng-deep .ant-pagination-item {
     a {
         padding-top: 5px !important;
@@ -14,5 +10,13 @@
 }
 
 ::ng-deep .ant-pagination-item-ellipsis {
+    padding-top: 3px !important;
+}
+
+::ng-deep .ant-pagination-jump-next {
+    padding-top: 5px !important;
+}
+
+::ng-deep .ant-pagination-jump-prev {
     padding-top: 5px !important;
 }
