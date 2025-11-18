@@ -1,10 +1,10 @@
 export const environment = {
     production: true,
-    apiKey: '__API_KEY__',
-    authDomain: '__AUTH_DOMAIN__',
-    projectId: '__PROJECT_ID__',
-    storageBucket: '__STORAGE_BUCKET__',
-    messagingSenderId: '__MESSAGING_SENDER_ID__',
-    appId: '__APP_ID__',
-    measurementId: '__MEASUREMENT_ID__',
+    apiKey: 'AIzaSyAInOPIIrWT6lrNPZF9yvFdhrpOteqkYaM',
+    authDomain: 'alibaba-720e8.firebaseapp.com',
+    projectId: 'alibaba-720e8',
+    storageBucket: 'alibaba-720e8.firebasestorage.app',
+    messagingSenderId: '689743944314',
+    appId: '1:689743944314:web:de0f73706ca50a5f7579c3',
+    measurementId: 'G-QXH943F17Bv',
 };
