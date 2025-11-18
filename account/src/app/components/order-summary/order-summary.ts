@@ -4,6 +4,7 @@ import { getAmount } from 'utils';
 
 @Component({
     selector: 'app-order-summary',
+    standalone: true,
     templateUrl: './order-summary.html',
     styleUrls: ['./order-summary.scss'],
 })

@@ -1,10 +1,10 @@
-<a *ngIf="product" href="/" target="_self">
-  <img src="{{ product.imageSrc }}" class="rounded-sm! lg:rounded-lg!" />
-  <div *ngIf="!isHideInfo" class="p-2 lg:pl-0">
-    <div class="mt-2! line-clamp-2! text-xs! text-[#666666]! lg:text-sm!">
-      {{ product.subject }}
+<div *ngIf="product" (click)="goToProduct(product.id)">
+    <img src="{{ product.imageSrc }}" class="rounded-sm! lg:rounded-lg!" />
+    <div *ngIf="!isHideInfo" class="p-2 lg:pl-0">
+        <div class="mt-2! line-clamp-2! text-xs! text-[#666666]! lg:text-sm!">
+            {{ product.subject }}
+        </div>
+        <div class="mt-0.5! text-sm! font-bold! lg:text-lg! text-black!">{{ product.price }}</div>
+        <div class="text-xs! lg:text-sm! text-black!">Min order: {{ product.minPerOrder }}</div>
     </div>
-    <div class="mt-0.5! text-sm! font-bold! lg:text-lg! text-black!">{{ product.price }}</div>
-    <div class="text-xs! lg:text-sm! text-black!">Min order: {{ product.minPerOrder }}</div>
-  </div>
-</a>
+</div>
