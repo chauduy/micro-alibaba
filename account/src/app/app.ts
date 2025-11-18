@@ -9,6 +9,7 @@ import { Loading } from './components/loading/loading';
 import { UserStore } from './store/user.store';
 import { FavoriteStore } from './store/favorite.store';
 import { OrderStore } from './store/order.store';
+import { db } from 'lib/firebase';
 
 @Component({
     selector: 'app-root',
@@ -42,6 +43,7 @@ export class App implements OnInit {
         this.user = toSignal(this.userStore.user$, { initialValue: null });
 
         effect(() => {
+            console.log('aaaa', db);
             const u = this.user();
             if (u?.uid) {
                 this.favoriteStore.loadFavoriteList(u.uid);
