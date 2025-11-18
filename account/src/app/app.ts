@@ -70,4 +70,8 @@ export class App implements OnInit {
         }
         return 256;
     }
+
+    logOut() {
+        window.parent.postMessage({ type: 'log-out' }, '*');
+    }
 }

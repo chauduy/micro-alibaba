@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 
 import Layout from '@/components/layout';
 import '@/styles/globals.css';
+import { storage } from '@/utils';
 
 export default function App({ Component, pageProps, ...appProps }: AppProps) {
     const router = useRouter();
@@ -19,6 +20,10 @@ export default function App({ Component, pageProps, ...appProps }: AppProps) {
             if (event.data?.type === 'go-to-product') {
                 const productId = event.data.product_id;
                 router.push(`/product/${productId}`);
+            }
+            if (event.data?.type === 'log-out') {
+                storage.clear();
+                router.push('/');
             }
         };
 

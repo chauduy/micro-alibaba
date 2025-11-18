@@ -92,10 +92,10 @@
                 </a>
             </div>
             <div>
-                <a
-                    class="flex items-center text-white py-4 menu-item"
+                <div
+                    class="flex items-center text-white py-4 menu-item cursor-pointer"
                     [ngClass]="isCollapsed ? 'justify-center pl-0' : 'pl-6'"
-                    routerLink="/order"
+                    (click)="logOut()"
                 >
                     <span
                         class="text-[25px] text-white shrink-0"
@@ -109,7 +109,7 @@
                     >
                         Sign out
                     </span>
-                </a>
+                </div>
             </div>
         </div>
     </nz-sider>
