@@ -10,6 +10,7 @@ import { UserStore } from './store/user.store';
 import { FavoriteStore } from './store/favorite.store';
 import { OrderStore } from './store/order.store';
 import { db } from 'lib/firebase';
+import { doc, getDoc } from 'firebase/firestore';
 
 @Component({
     selector: 'app-root',
@@ -42,10 +43,11 @@ export class App implements OnInit {
         this.orderList = toSignal(this.orderStore.orderList$, { initialValue: null });
         this.user = toSignal(this.userStore.user$, { initialValue: null });
 
-        effect(() => {
+        effect(async () => {
             console.log('aaaa', db);
             const u = this.user();
             if (u?.uid) {
+                console.log('11111', u);
                 this.favoriteStore.loadFavoriteList(u.uid);
                 this.orderStore.loadOrderList(u.uid);
             }
