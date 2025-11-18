@@ -25,6 +25,9 @@ export default function App({ Component, pageProps, ...appProps }: AppProps) {
                 storage.clear();
                 router.push('/');
             }
+            if (event.data?.type === 'go-to-home') {
+                router.push('/');
+            }
         };
 
         window.addEventListener('message', handler);

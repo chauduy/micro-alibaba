@@ -9,15 +9,14 @@
         [ngClass]="isMobile ? 'sider-overlay' : 'menu-sidebar'"
     >
         <div class="sidebar-logo flex items-center justify-between border-b border-white">
-            <a
-                href="https://ng.ant.design/"
-                target="_blank"
+            <div
                 [ngClass]="isCollapsed ? 'hidden' : ''"
                 class="flex items-center"
+                (click)="goToHome()"
             >
                 <img src="/brand.png" class="h-10 w-10 mr-2" />
                 <div class="text-[#ff6a00] text-[20px] font-bold">Alibaba</div>
-            </a>
+            </div>
             <span
                 class="text-[20px] cursor-pointer transition-all-[0.3s] text-white"
                 [ngClass]="isCollapsed ? 'pl-1.5' : 'pr-4'"

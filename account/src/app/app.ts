@@ -74,4 +74,8 @@ export class App implements OnInit {
     logOut() {
         window.parent.postMessage({ type: 'log-out' }, '*');
     }
+
+    goToHome() {
+        window.parent.postMessage({ type: 'go-to-home' }, '*');
+    }
 }
