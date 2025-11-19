@@ -25,6 +25,19 @@ export default function App({ Component, pageProps, ...appProps }: AppProps) {
             });
         }
 
+        // Send current user to iframes if user is already logged in
+        function sendCurrentUserToIframes() {
+            const storedUser = storage.getItem('user');
+            if (storedUser) {
+                try {
+                    const user = JSON.parse(storedUser);
+                    broadcastToApps('set-user', user);
+                } catch (error) {
+                    console.error('Error parsing stored user:', error);
+                }
+            }
+        }
+
         const handler = (event: MessageEvent) => {
             if (event.data?.type === 'go-to-product') {
                 const productId = event.data.product_id;
@@ -40,10 +53,23 @@ export default function App({ Component, pageProps, ...appProps }: AppProps) {
             if (event.data?.type === 'set-user') {
                 broadcastToApps('set-user', event.data.user);
             }
+            if (event.data?.type === 'request-user') {
+                // Account app is requesting user data
+                sendCurrentUserToIframes();
+            }
         };
 
         window.addEventListener('message', handler);
-        return () => window.removeEventListener('message', handler);
+        
+        // Send current user to iframes after a short delay to ensure iframes are loaded
+        const timeoutId = setTimeout(() => {
+            sendCurrentUserToIframes();
+        }, 1000);
+
+        return () => {
+            window.removeEventListener('message', handler);
+            clearTimeout(timeoutId);
+        };
     }, []);
 
     return (
