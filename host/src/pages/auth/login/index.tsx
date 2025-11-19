@@ -4,10 +4,16 @@ import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 
+import Loading from '@/components/Loading';
 import { customToast } from '@/utils';
 
 const RemoteLoginPage = dynamic(() => import('authApp/LoginPage'), {
-    ssr: false
+    ssr: false,
+    loading: () => (
+        <div className="flex h-screen items-center justify-center">
+            <Loading />
+        </div>
+    )
 }) as React.ComponentType<{
     onLoginSuccess: () => void;
     onClickRegister: () => void;

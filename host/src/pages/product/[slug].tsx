@@ -2,10 +2,16 @@ import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { toast } from 'sonner';
 
+import Loading from '@/components/Loading';
 import { customToast } from '@/utils';
 
 const RemoteProductPage = dynamic(() => import('productApp/ProductPage'), {
-    ssr: false
+    ssr: false,
+    loading: () => (
+        <div className="flex h-screen items-center justify-center">
+            <Loading />
+        </div>
+    )
 }) as React.ComponentType<{
     id: string;
     onShowToast: (name: string, add: boolean) => void;
