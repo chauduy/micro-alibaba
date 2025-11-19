@@ -28,9 +28,7 @@ function Home() {
     return (
         <div className="h-full w-full">
             <Image
-                src={
-                    "https://s.alicdn.com/@img/imgextra/i1/O1CN01CkOjeV1EaaXM2zUJL_!!6000000000368-2-tps-1920-220.png"
-                }
+                src={"/images/banner.avif"}
                 alt="banner"
                 width={1000}
                 height={1000}
