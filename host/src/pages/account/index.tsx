@@ -26,33 +26,36 @@ export default function AccountPage() {
         };
 
         const iframe = iframeRef.current;
+        if (!iframe) return;
 
-        if (iframe) {
-            iframe.addEventListener('load', () => {
-                setLoading(false);
+        const handleLoad = () => {
+            setLoading(false);
+            setTimeout(sendUserToIframe, 500);
+        };
 
-                setTimeout(sendUserToIframe, 500);
-            });
+        if (iframe.contentDocument?.readyState === 'complete') {
+            handleLoad();
+        } else {
+            iframe.addEventListener('load', handleLoad);
         }
 
-        if (iframe?.contentWindow) {
-            setTimeout(sendUserToIframe, 1000);
-        }
+        return () => {
+            iframe.removeEventListener('load', handleLoad);
+        };
     }, []);
 
     return (
         <div style={{ width: '100%', height: '100vh', position: 'relative' }}>
-            {loading ? (
+            {loading && (
                 <div className="flex h-screen items-center justify-center">
                     <Loading />
                 </div>
-            ) : (
-                <iframe
-                    ref={iframeRef}
-                    src="https://micro-alibaba-o6fe.vercel.app/"
-                    style={{ width: '100%', height: '100%', border: 'none' }}
-                />
             )}
+            <iframe
+                ref={iframeRef}
+                src="https://micro-alibaba-o6fe.vercel.app/"
+                style={{ width: '100%', height: '100%', border: 'none' }}
+            />
         </div>
     );
 }
