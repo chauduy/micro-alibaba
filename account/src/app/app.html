@@ -11,11 +11,11 @@
         <div class="sidebar-logo flex items-center justify-between border-b border-white">
             <div
                 [ngClass]="isCollapsed ? 'hidden' : ''"
-                class="flex items-center"
+                class="flex items-center cursor-pointer"
                 (click)="goToHome()"
             >
                 <img src="/brand.png" class="h-10 w-10 mr-2" />
-                <div class="text-[#ff6a00] text-[20px] font-bold">Alibaba</div>
+                <div class="text-[#ff6a00] text-[20px] font-bold cursor-pointer">Alibaba</div>
             </div>
             <span
                 class="text-[20px] cursor-pointer transition-all-[0.3s] text-white"
