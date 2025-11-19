@@ -43,7 +43,7 @@ function CartItem({
 
     return (
         <div
-            className={`pb-6 pl-4 ${product.isLast ? "" : "border-b border-gray-300"}`}
+            className={`pb-6 ${product.isLast ? "" : "border-b border-gray-300"}`}
         >
             <h4 className="mb-4 text-xl font-bold">{getCategory()}</h4>
             <div className="flex gap-x-4">

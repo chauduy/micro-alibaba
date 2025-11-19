@@ -8,13 +8,14 @@ import { v4 as uuidv4 } from "uuid";
 
 import Loading from "@/components/Loading";
 import { Button } from "@/components/ui/button";
-import { notifyEvent, storage } from "@/utils";
+import { notifyEvent, paging, storage } from "@/utils";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { Product } from "@/types";
 import OrderSummary from "../OrderSummary";
 import CartItem from "../CartItem";
 import { CART_UPDATE } from "@/constants";
+import CustomPagination from "../ui/pagination";
 
 interface ProductCheckout {
     name: string;
@@ -26,6 +27,9 @@ function Cart() {
     const [loading, setLoading] = useState<boolean>(false);
     const [loadingCart, setLoadingCart] = useState<boolean>(true);
     const [list, setList] = useState<Product[]>([]);
+    const [currentData, setCurrentData] = useState<Product[]>();
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const [pagingData, setPagingData] = useState<any>();
     const router = useRouter();
     const user = JSON.parse(storage.getItem("user") as string) || null;
 
@@ -104,6 +108,20 @@ function Cart() {
         handleGetListCart();
     }, [user?.uid]);
 
+    useEffect(() => {
+        if (list && list.length > 0) {
+            setPagingData(paging(list, 3));
+        } else {
+            setPagingData(null);
+        }
+    }, [list]);
+
+    useEffect(() => {
+        if (pagingData && pagingData?.data) {
+            setCurrentData(pagingData.data[currentPage]);
+        }
+    }, [currentPage, pagingData]);
+
     const handleChangeQuantity = async (
         product_id: number,
         isPlus: boolean
@@ -157,20 +175,31 @@ function Cart() {
             {!loadingCart && list !== null ? (
                 <>
                     <h1 className="text-2xl font-bold">Shopping cart</h1>
-                    {list!.length > 0 ? (
-                        <div className="mt-8 flex flex-col gap-y-4 lg:ml-4 xl:flex-row xl:gap-x-24">
-                            <div className="flex flex-col gap-y-4">
-                                {list!.map((item, index) => (
-                                    <CartItem
-                                        product={{
-                                            ...item,
-                                            isLast: index === list!.length - 1,
-                                        }}
-                                        key={item.id}
-                                        onChangeQuantity={handleChangeQuantity}
-                                        onRemoveFromCart={handleRemove}
-                                    />
-                                ))}
+                    {currentData && currentData!.length > 0 ? (
+                        <div className="mt-8 flex flex-col gap-y-4 xl:flex-row xl:gap-x-24">
+                            <div className="flex flex-col gap-y-4 lg:min-w-[810px]">
+                                <div className="flex flex-col gap-y-4 min-h-[570px] lg:min-h-[690px]">
+                                    {currentData!.map((item, index) => (
+                                        <CartItem
+                                            product={{
+                                                ...item,
+                                                isLast:
+                                                    index ===
+                                                    currentData!.length - 1,
+                                            }}
+                                            key={item.id}
+                                            onChangeQuantity={
+                                                handleChangeQuantity
+                                            }
+                                            onRemoveFromCart={handleRemove}
+                                        />
+                                    ))}
+                                </div>
+                                <CustomPagination
+                                    totalPage={pagingData.totalPage}
+                                    currentPage={currentPage}
+                                    setCurrentPage={setCurrentPage}
+                                />
                             </div>
                             <OrderSummary
                                 list={list}

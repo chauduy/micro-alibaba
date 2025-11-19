@@ -17,7 +17,7 @@ import { paging } from 'utils';
 })
 export class MyList {
     favoriteList;
-    pagingDate = signal<{ totalPage: number; data: any } | null>(null);
+    pagingData = signal<{ totalPage: number; data: any } | null>(null);
     currentPage = signal<number>(1);
     currentData = signal<Product[]>([]);
 
@@ -26,16 +26,16 @@ export class MyList {
         effect(() => {
             const temp = this.favoriteList();
             if (temp && temp.length > 0) {
-                this.pagingDate.set(paging(temp, 3));
+                this.pagingData.set(paging(temp, 3));
             } else {
-                this.pagingDate.set(null);
+                this.pagingData.set(null);
                 this.currentData.set([]);
             }
         });
 
         effect(() => {
             const page = this.currentPage();
-            const pagingData = this.pagingDate();
+            const pagingData = this.pagingData();
             if (pagingData && pagingData.data) {
                 const pageData = pagingData.data[page];
                 if (pageData) {
