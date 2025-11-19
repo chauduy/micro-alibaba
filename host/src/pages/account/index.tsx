@@ -29,15 +29,16 @@ export default function AccountPage() {
         if (!iframe) return;
 
         const handleLoad = () => {
-            setLoading(false);
-            setTimeout(sendUserToIframe, 500);
+            // Ensure loading shows for at least a brief moment
+            setTimeout(() => {
+                setLoading(false);
+                setTimeout(sendUserToIframe, 500);
+            }, 300);
         };
 
-        if (iframe.contentDocument?.readyState === 'complete') {
-            handleLoad();
-        } else {
-            iframe.addEventListener('load', handleLoad);
-        }
+        // Use load event - more reliable than checking readyState
+        // (readyState check can fail due to CORS)
+        iframe.addEventListener('load', handleLoad);
 
         return () => {
             iframe.removeEventListener('load', handleLoad);
@@ -47,7 +48,17 @@ export default function AccountPage() {
     return (
         <div style={{ width: '100%', height: '100vh', position: 'relative' }}>
             {loading && (
-                <div className="flex h-screen items-center justify-center">
+                <div
+                    className="flex h-screen items-center justify-center"
+                    style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        zIndex: 10,
+                        backgroundColor: 'white'
+                    }}>
                     <Loading />
                 </div>
             )}
