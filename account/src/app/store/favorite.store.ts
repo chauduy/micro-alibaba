@@ -17,7 +17,6 @@ export class FavoriteStore {
     }
 
     async loadFavoriteList(uid: string) {
-        console.log('aaa', db);
         try {
             const listRef = doc(db, 'customers', uid, 'favorite', 'listData');
             const listSnap = await getDoc(listRef);

@@ -43,12 +43,9 @@ export class App implements OnInit {
         this.orderList = toSignal(this.orderStore.orderList$, { initialValue: null });
         this.user = toSignal(this.userStore.user$, { initialValue: null });
 
-        effect(async () => {
-            console.log('db', db);
+        effect(() => {
             const u = this.user();
-            console.log('auth', auth, u);
             if (u?.uid) {
-                console.log('11111', u);
                 this.favoriteStore.loadFavoriteList(u.uid);
                 this.orderStore.loadOrderList(u.uid);
             }

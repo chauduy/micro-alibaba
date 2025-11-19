@@ -18,7 +18,6 @@ export default function App({ Component, pageProps, ...appProps }: AppProps) {
     useEffect(() => {
         function broadcastToApps(type: any, payload: any) {
             document.querySelectorAll('iframe').forEach((frame) => {
-                console.log('frame', frame);
                 if (frame.contentWindow) {
                     frame.contentWindow.postMessage({ type, payload }, '*');
                 }
@@ -60,7 +59,7 @@ export default function App({ Component, pageProps, ...appProps }: AppProps) {
         };
 
         window.addEventListener('message', handler);
-        
+
         // Send current user to iframes after a short delay to ensure iframes are loaded
         const timeoutId = setTimeout(() => {
             sendCurrentUserToIframes();
