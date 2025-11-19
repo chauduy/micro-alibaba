@@ -21,7 +21,7 @@ function QuantitySelector({
             <Button
                 variant={"outline"}
                 size={"icon"}
-                className="quantityBtn"
+                className="quantityBtn h-6 w-6 rounded-l-full rounded-r-full border border-[#d8d8d8] p-0 shadow-none hover:bg-accent lg:h-8 lg:w-8"
                 disabled={quantity === 1 || disabled}
                 onClick={() => onChangeQuantity(productId, false)}
             >
@@ -38,7 +38,7 @@ function QuantitySelector({
                 variant={"outline"}
                 size={"icon"}
                 disabled={disabled}
-                className="quantityBtn"
+                className="quantityBtn h-6 w-6 rounded-r-full rounded-l-full border border-[#d8d8d8] p-0 shadow-none hover:bg-accent lg:h-8 lg:w-8"
                 onClick={() => onChangeQuantity(productId, true)}
             >
                 <FaPlus />
