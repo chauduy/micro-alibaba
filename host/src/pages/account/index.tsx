@@ -7,43 +7,56 @@ import { storage } from '@/utils';
 
 export default function AccountPage() {
     const iframeRef = useRef<HTMLIFrameElement>(null);
+    const timeoutRef = useRef<NodeJS.Timeout | null>(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const sendUserToIframe = () => {
-            const storedUser = storage.getItem('user');
-            if (storedUser && iframeRef.current?.contentWindow) {
-                try {
-                    const user = JSON.parse(storedUser);
-                    iframeRef.current.contentWindow.postMessage(
-                        { type: 'set-user', payload: user },
-                        '*'
-                    );
-                } catch (error) {
-                    console.error('Error parsing stored user:', error);
-                }
-            }
-        };
-
-        const iframe = iframeRef.current;
-        if (!iframe) return;
-
-        const handleLoad = () => {
-            // Ensure loading shows for at least a brief moment
-            setTimeout(() => {
-                setLoading(false);
-                setTimeout(sendUserToIframe, 500);
-            }, 300);
-        };
-
-        // Use load event - more reliable than checking readyState
-        // (readyState check can fail due to CORS)
-        iframe.addEventListener('load', handleLoad);
+        timeoutRef.current = setTimeout(() => {
+            console.warn('Iframe load timeout - hiding loading state');
+            setLoading(false);
+        }, 10000); // 10 second max timeout
 
         return () => {
-            iframe.removeEventListener('load', handleLoad);
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+            }
         };
     }, []);
+
+    const handleIframeLoad = () => {
+        if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
+            timeoutRef.current = null;
+        }
+
+        setTimeout(() => {
+            setLoading(false);
+            const sendUserToIframe = () => {
+                const storedUser = storage.getItem('user');
+                if (storedUser && iframeRef.current?.contentWindow) {
+                    try {
+                        const user = JSON.parse(storedUser);
+                        iframeRef.current.contentWindow.postMessage(
+                            { type: 'set-user', payload: user },
+                            '*'
+                        );
+                    } catch (error) {
+                        console.error('Error parsing stored user:', error);
+                    }
+                }
+            };
+            setTimeout(sendUserToIframe, 500);
+        }, 300);
+    };
+
+    const handleIframeError = () => {
+        if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
+            timeoutRef.current = null;
+        }
+        console.error('Iframe failed to load');
+        setLoading(false);
+    };
 
     return (
         <div style={{ width: '100%', height: '100vh', position: 'relative' }}>
@@ -66,6 +79,8 @@ export default function AccountPage() {
                 ref={iframeRef}
                 src="https://micro-alibaba-o6fe.vercel.app/"
                 style={{ width: '100%', height: '100%', border: 'none' }}
+                onLoad={handleIframeLoad}
+                onError={handleIframeError}
             />
         </div>
     );
