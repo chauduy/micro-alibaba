@@ -19,7 +19,4 @@ Object.entries(replacements).forEach(([placeholder, value]) => {
     }
 });
 
-console.log('envContent', envContent);
-
 fs.writeFileSync(envFilePath, envContent);
-console.log('Done replacing env vars.');

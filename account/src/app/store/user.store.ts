@@ -15,11 +15,10 @@ export class UserStore {
     }
 
     async loadUser() {
-        console.log('load user');
-        const stored = localStorage.getItem('user');
-        if (stored) {
-            const parseData = JSON.parse(stored);
-            this._user$.next(parseData);
-        }
+        window.addEventListener('message', (e) => {
+            if (e.data?.type === 'auth-user') {
+                this._user$.next(e.data.payload);
+            }
+        });
     }
 }

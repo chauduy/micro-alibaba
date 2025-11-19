@@ -57,7 +57,7 @@ function Login({
                 uid: user.uid,
                 loginMethod: "account",
             };
-            localStorage.setItem("user", JSON.stringify(tempUser));
+            window.parent.postMessage({ type: "set-user", user: tempUser });
             onLoginSuccess();
         } catch (error) {
             console.error("Login error:", error);
@@ -78,7 +78,7 @@ function Login({
                 uid: userResponse.uid,
                 loginMethod: "google",
             };
-            localStorage.setItem("user", JSON.stringify(user));
+            window.parent.postMessage({ type: "set-user", user });
             onLoginSuccess();
         } catch (error) {
             console.error("Google Sign-In Error:", error);

@@ -16,6 +16,14 @@ export default function App({ Component, pageProps, ...appProps }: AppProps) {
     const HomeLayout = isLayoutNeeded ? Layout : Fragment;
 
     useEffect(() => {
+        function broadcastToApps(type: any, payload: any) {
+            document.querySelectorAll('iframe').forEach((frame) => {
+                if (frame.contentWindow) {
+                    frame.contentWindow.postMessage({ type, payload }, '*');
+                }
+            });
+        }
+
         const handler = (event: MessageEvent) => {
             if (event.data?.type === 'go-to-product') {
                 const productId = event.data.product_id;
@@ -27,6 +35,9 @@ export default function App({ Component, pageProps, ...appProps }: AppProps) {
             }
             if (event.data?.type === 'go-to-home') {
                 router.push('/');
+            }
+            if (event.data?.type === 'set-user') {
+                broadcastToApps('set-user', event.data.user);
             }
         };
 
