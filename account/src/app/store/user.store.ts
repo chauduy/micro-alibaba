@@ -15,7 +15,9 @@ export class UserStore {
     }
 
     async loadUser() {
+        console.log('loading');
         window.addEventListener('message', (e) => {
+            console.log('e', e);
             if (e.data?.type === 'auth-user') {
                 this._user$.next(e.data.payload);
             }
