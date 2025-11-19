@@ -42,17 +42,17 @@ export default function AccountPage() {
 
     return (
         <div style={{ width: '100%', height: '100vh', position: 'relative' }}>
-            {loading && (
+            {loading ? (
                 <div className="flex h-screen items-center justify-center">
                     <Loading />
                 </div>
+            ) : (
+                <iframe
+                    ref={iframeRef}
+                    src="https://micro-alibaba-o6fe.vercel.app/"
+                    style={{ width: '100%', height: '100%', border: 'none' }}
+                />
             )}
-
-            <iframe
-                ref={iframeRef}
-                src="https://micro-alibaba-o6fe.vercel.app/"
-                style={{ width: '100%', height: '100%', border: 'none' }}
-            />
         </div>
     );
 }
