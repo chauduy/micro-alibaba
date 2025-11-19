@@ -9,7 +9,7 @@ import { Loading } from './components/loading/loading';
 import { UserStore } from './store/user.store';
 import { FavoriteStore } from './store/favorite.store';
 import { OrderStore } from './store/order.store';
-import { db } from 'lib/firebase';
+import { auth, db } from 'lib/firebase';
 import { doc, getDoc } from 'firebase/firestore';
 
 @Component({
@@ -44,8 +44,9 @@ export class App implements OnInit {
         this.user = toSignal(this.userStore.user$, { initialValue: null });
 
         effect(async () => {
-            console.log('aaaa', db);
+            console.log('db', db);
             const u = this.user();
+            console.log('auth', auth, u);
             if (u?.uid) {
                 console.log('11111', u);
                 this.favoriteStore.loadFavoriteList(u.uid);

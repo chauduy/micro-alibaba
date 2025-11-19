@@ -9,6 +9,9 @@ Object.keys(process.env).forEach((key) => {
         envContent = envContent.replaceAll(placeholder, process.env[key]);
     }
 });
+console.log('process', process.env);
+console.log('envContent', envContent);
+console.log('envFilePath', envFilePath);
 
 fs.writeFileSync(envFilePath, envContent);
 console.log('Environment variables replaced');
