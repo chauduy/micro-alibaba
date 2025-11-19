@@ -27,13 +27,14 @@ function Home() {
 
     return (
         <div className="h-full w-full">
-            <Image
-                src={"/images/banner.avif"}
-                alt="banner"
-                width={1000}
-                height={1000}
-                className="h-[100px] w-full object-cover md:h-[150px] lg:h-[220px]"
-            />
+            <div className="relative w-full h-[100px] md:h-[150px] lg:h-[220px]">
+                <Image
+                    src="/images/banner.avif"
+                    alt="banner"
+                    fill
+                    className="object-cover"
+                />
+            </div>
 
             <main className="appPadding largeScreenConstrain">
                 <div className="mx-1.5">
