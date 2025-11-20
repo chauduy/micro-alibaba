@@ -1,5 +1,6 @@
 <div class="largeScreenConstrain">
     <div class="mt-5! text-2xl! font-bold! px-4 lg:mt-10!">Orders</div>
+    @if (orders.length > 0) {
     <div class="flex flex-col justify-between p-4">
         <div class="flex flex-col mb-10 min-h-80">
             @if (currentData().length > 0) {
@@ -20,5 +21,16 @@
         ></nz-pagination>
         }
     </div>
+    }@else {
+    <div class="flex w-fit flex-col p-4 mx-auto">
+        <div class="flex w-32 items-center justify-center rounded-xl bg-gray-100 p-4">
+            <img alt="no-favorite" src="/no-favorite.avif" class="w-20 object-cover" />
+        </div>
+        <div class="my-2 text-center text-[16px] font-bold text-black">No order yet</div>
+        <a href="/" target="_self" class="text-center hover:underline! text-black!">
+            Start sourcing
+        </a>
+    </div>
+    }
     <app-inspiration-list />
 </div>

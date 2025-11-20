@@ -1,22 +1,31 @@
 <div class="bg-white p-4">
-  <p class="mb-4! text-2xl! font-bold!">Profile</p>
+    <p class="mb-4! text-2xl! font-bold!">Profile</p>
 
-  <div *ngIf="user() as user" class="flex flex-col gap-y-2">
-    <div class="flex items-center">
-      <div class="min-w-[120px]">Your name:</div>
-      <div>{{ user.first_name }} {{ user.last_name }}</div>
+    <div *ngIf="user() as user" class="flex flex-col gap-y-2">
+        <div class="flex items-center">
+            <div class="min-w-[120px]">Your name:</div>
+            <div>
+                @if (user.loginMethod === 'account') {
+                {{ user.first_name }} {{ user.last_name }}
+                }@else {
+                {{ user.display_name }}
+                }
+            </div>
+        </div>
+        <div class="flex items-center">
+            <div class="min-w-[120px]">Email:</div>
+            <div>{{ user.email.slice(0, 5) }}*****@{{ user.email.split('@')[1] }}</div>
+        </div>
+        <div class="flex items-center">
+            <div class="min-w-[120px]">Password:</div>
+            <div>*************</div>
+        </div>
+        <div class="flex items-center">
+            <div class="min-w-[120px]">Linked mobile:</div>
+            <div>
+                @if(user.phone_number) { ********{{ user.phone_number.slice(-3) }}
+                }@else { N/A }
+            </div>
+        </div>
     </div>
-    <div class="flex items-center">
-      <div class="min-w-[120px]">Email:</div>
-      <div>{{ user.email.slice(0, 5) }}*****@{{ user.email.split('@')[1] }}</div>
-    </div>
-    <div class="flex items-center">
-      <div class="min-w-[120px]">Password:</div>
-      <div>*************</div>
-    </div>
-    <div class="flex items-center">
-      <div class="min-w-[120px]">Linked mobile:</div>
-      <div>********{{ user.phone_number.slice(-3) }}</div>
-    </div>
-  </div>
 </div>
