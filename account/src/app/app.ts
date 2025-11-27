@@ -1,5 +1,5 @@
-import { Component, effect, EventEmitter, HostListener, OnInit } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { Component, effect, HostListener, OnInit } from '@angular/core';
+import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
@@ -9,8 +9,7 @@ import { Loading } from './components/loading/loading';
 import { UserStore } from './store/user.store';
 import { FavoriteStore } from './store/favorite.store';
 import { OrderStore } from './store/order.store';
-import { auth, db } from 'lib/firebase';
-import { doc, getDoc } from 'firebase/firestore';
+import { filter } from 'rxjs';
 
 @Component({
     selector: 'app-root',
@@ -28,7 +27,7 @@ import { doc, getDoc } from 'firebase/firestore';
     styleUrl: './app.scss',
 })
 export class App implements OnInit {
-    isCollapsed = false;
+    isCollapsed = true;
     isMobile = false;
     favoriteList;
     orderList;
@@ -37,17 +36,32 @@ export class App implements OnInit {
     constructor(
         private userStore: UserStore,
         private favoriteStore: FavoriteStore,
-        private orderStore: OrderStore
+        private orderStore: OrderStore,
+        router: Router
     ) {
         this.favoriteList = toSignal(this.favoriteStore.favoriteList$, { initialValue: null });
         this.orderList = toSignal(this.orderStore.orderList$, { initialValue: null });
         this.user = toSignal(this.userStore.user$, { initialValue: null });
+        const navigation = toSignal(router.events.pipe(filter((e) => e instanceof NavigationEnd)), {
+            initialValue: null,
+        });
 
         effect(() => {
             const u = this.user();
             if (u?.uid) {
                 this.favoriteStore.loadFavoriteList(u.uid);
                 this.orderStore.loadOrderList(u.uid);
+            }
+        });
+
+        effect(() => {
+            navigation();
+            const top = document.getElementById('top-logo');
+            if (this.isMobile && !this.isCollapsed) {
+                this.isCollapsed = true;
+            }
+            if (top && this.isMobile) {
+                top.scrollIntoView({ behavior: 'instant' });
             }
         });
     }

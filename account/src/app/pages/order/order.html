@@ -1,6 +1,6 @@
 <div class="largeScreenConstrain">
     <div class="mt-5! text-2xl! font-bold! px-4 lg:mt-10!">Orders</div>
-    @if (orders.length > 0) {
+    @if (orders()!.length > 0) {
     <div class="flex flex-col justify-between p-4">
         <div class="flex flex-col mb-10 min-h-80">
             @if (currentData().length > 0) {

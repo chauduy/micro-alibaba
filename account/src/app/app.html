@@ -33,7 +33,7 @@
             <div class="hover:bg-slate-400">
                 <a
                     class="flex items-center text-white py-4 menu-item"
-                    [ngClass]="isCollapsed ? 'justify-center pl-0' : 'pl-6'"
+                    [ngClass]="isCollapsed ? 'hidden md:flex justify-center pl-0' : 'pl-6'"
                     routerLink="/account"
                 >
                     <span
@@ -53,7 +53,7 @@
             <div class="hover:bg-slate-400">
                 <a
                     class="flex items-center text-white py-4 menu-item"
-                    [ngClass]="isCollapsed ? 'justify-center pl-0' : 'pl-6'"
+                    [ngClass]="isCollapsed ? 'hidden md:flex justify-center pl-0' : 'pl-6'"
                     routerLink="/orders"
                 >
                     <span
@@ -73,7 +73,7 @@
             <div class="hover:bg-slate-400">
                 <a
                     class="flex items-center text-white py-4 menu-item"
-                    [ngClass]="isCollapsed ? 'justify-center pl-0' : 'pl-6'"
+                    [ngClass]="isCollapsed ? 'hidden md:flex justify-center pl-0' : 'pl-6'"
                     routerLink="/my-list"
                 >
                     <span
@@ -93,7 +93,7 @@
             <div>
                 <div
                     class="flex items-center text-white py-4 menu-item cursor-pointer"
-                    [ngClass]="isCollapsed ? 'justify-center pl-0' : 'pl-6'"
+                    [ngClass]="isCollapsed ? 'hidden md:flex justify-center pl-0' : 'pl-6'"
                     (click)="logOut()"
                 >
                     <span
@@ -115,7 +115,7 @@
 
     <nz-layout class="overflow-y-auto">
         <nz-header [ngClass]="isMobile ? '' : 'hidden!'">
-            <div class="app-header py-3 px-4 flex items-center">
+            <div class="app-header py-3 px-4 flex items-center" id="top-logo">
                 <img src="/brand.png" class="h-10 w-10 mr-4" />
                 <span
                     class="cursor-pointer flex items-center justify-center"
