@@ -46,6 +46,13 @@ export class Order {
                 }
             }
         });
+
+        effect(() => {
+            const topPoint = document.getElementById('top-point');
+            if (topPoint) {
+                topPoint.scrollIntoView({ behavior: 'instant' });
+            }
+        });
     }
 
     onChangePage(page: number) {
