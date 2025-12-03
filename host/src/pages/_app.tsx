@@ -1,8 +1,9 @@
-import { Fragment, useEffect } from 'react';
+import { useEffect } from 'react';
 
 import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
 
+import EmptyLayout from '@/components/EmptyLayout';
 import Layout from '@/components/layout';
 import '@/styles/globals.css';
 import { storage } from '@/utils';
@@ -13,7 +14,7 @@ export default function App({ Component, pageProps, ...appProps }: AppProps) {
         !router.pathname.includes('account') &&
         !router.pathname.includes('my-list') &&
         !router.pathname.includes('orders');
-    const HomeLayout = isLayoutNeeded ? Layout : Fragment;
+    const HomeLayout = isLayoutNeeded ? Layout : EmptyLayout;
 
     useEffect(() => {
         function broadcastToApps(type: any, payload: any) {
