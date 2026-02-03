@@ -20,6 +20,10 @@ function Success() {
     const searchParams = useSearchParams();
     const isValidURL =
         searchParams.get('code') !== null && searchParams.get('code') === storage.getItem('code');
+    console.log('isValidURL', isValidURL);
+    console.log('searchParams', searchParams.get('code'), typeof searchParams.get('code'));
+    console.log('storage', storage.getItem('code'), typeof storage.getItem('code'));
+    debugger;
 
     if (!isValidURL && typeof window !== 'undefined') {
         router.back();
