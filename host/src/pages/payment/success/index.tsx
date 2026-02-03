@@ -25,14 +25,14 @@ function Success() {
     console.log('storage', storage.getItem('code'), typeof storage.getItem('code'));
     debugger;
 
-    if (!isValidURL && typeof window !== 'undefined') {
-        router.back();
-        return (
-            <div className="screenWrapperLoading">
-                <Loading />
-            </div>
-        );
-    }
+    // if (!isValidURL && typeof window !== 'undefined') {
+    //     router.back();
+    //     return (
+    //         <div className="screenWrapperLoading">
+    //             <Loading />
+    //         </div>
+    //     );
+    // }
 
     useEffect(() => {
         const handleSubmitOrder = async () => {
