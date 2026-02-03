@@ -19,7 +19,7 @@ function AccountPopup() {
     const handleLogOut = async () => {
         try {
             await signOut(auth);
-            storage.removeItem('user');
+            storage.clear();
             router.push('/');
         } catch (error) {
             toast.error('Something went wrong!', customToast('error'));
