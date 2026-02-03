@@ -1,6 +1,6 @@
 'use client';
 
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import { doc, setDoc } from 'firebase/firestore';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -18,31 +18,32 @@ function Success() {
     const { user, listCart, handleClearCart } = useContext(AppRedirectContext);
     const router = useRouter();
     const searchParams = useSearchParams();
-    const isValidURL =
-        searchParams.get('code') !== null && searchParams.get('code') === storage.getItem('code');
-    console.log('isValidURL', isValidURL);
-    console.log('searchParams', searchParams.get('code'), typeof searchParams.get('code'));
-    console.log('storage', storage.getItem('code'), typeof storage.getItem('code'));
-    debugger;
 
-    // if (!isValidURL && typeof window !== 'undefined') {
-    //     router.back();
-    //     return (
-    //         <div className="screenWrapperLoading">
-    //             <Loading />
-    //         </div>
-    //     );
-    // }
+    const [isChecking, setIsChecking] = useState(true);
+    const [isValidURL, setIsValidURL] = useState(false);
 
     useEffect(() => {
-        const handleSubmitOrder = async () => {
-            if (!user?.uid || !listCart || listCart.length === 0) return;
+        const codeFromURL = searchParams.get('code');
+        const codeFromStorage = storage.getItem('code');
 
+        if (!codeFromURL || codeFromURL !== codeFromStorage) {
+            router.back();
+            return;
+        }
+
+        setIsValidURL(true);
+        setIsChecking(false);
+    }, [searchParams, router]);
+
+    useEffect(() => {
+        if (!isValidURL || !user?.uid || !listCart?.length) return;
+
+        const submitOrder = async () => {
             const orderId = uuidv4();
             const orderData = {
                 list: listCart,
                 order_time: new Date(),
-                delivery_time: new Date(new Date().setDate(new Date().getDate() + 7)),
+                delivery_time: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
                 orderId
             };
 
@@ -50,32 +51,33 @@ function Success() {
                 const orderRef = doc(db, 'customers', user.uid, 'orders', orderId);
                 await setDoc(orderRef, orderData);
                 handleClearCart();
-                console.log('Order submitted successfully!');
-            } catch (error) {
-                console.error('Error submitting order:', error);
+            } catch (err) {
+                console.error('Order submit failed:', err);
             }
         };
 
-        handleSubmitOrder();
-    }, [listCart]);
+        submitOrder();
+    }, [isValidURL, user, listCart]);
+
+    if (isChecking) {
+        return (
+            <div className="screenWrapperLoading">
+                <Loading />
+            </div>
+        );
+    }
 
     return (
-        <div className="flex h-[700px] flex-col items-center justify-center px-6 md:h-[1000px] lg:h-[800px]">
-            <div className="flex flex-col items-center gap-y-2 md:gap-y-3">
-                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary md:h-16 md:w-16">
-                    <FaCheck className="h-6 w-6 text-white md:h-8 md:w-8" />
+        <div className="flex h-[700px] flex-col items-center justify-center px-6">
+            <div className="flex flex-col items-center gap-y-3">
+                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary">
+                    <FaCheck className="h-6 w-6 text-white" />
                 </div>
-                <h4 className="text-lg font-extrabold md:text-4xl">Congratulation!</h4>
-                <div className="text-center text-sm text-gray-500 md:max-w-[70%] md:text-lg">
-                    Thank you for your order. We appreciate your business and look forward to
-                    serving you again.
-                </div>
-                <Button
-                    variant={'default'}
-                    className="mt-2 rounded-full text-white"
-                    onClick={() => router.push('/')}>
-                    Countinue to shopping
-                </Button>
+                <h4 className="text-2xl font-extrabold">Congratulations!</h4>
+                <p className="text-center text-gray-500">
+                    Thank you for your order. We appreciate your business.
+                </p>
+                <Button onClick={() => router.push('/')}>Continue shopping</Button>
             </div>
             <Confetti />
         </div>
